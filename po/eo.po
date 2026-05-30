@@ -1,74 +1,159 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-24 22:31+0800\n"
+"Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
+"POT-Creation-Date: 2026-05-31 00:21+0800\n"
+"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"Last-Translator: Lenik <audiocfg@bodz.net>\n"
+"Language-Team: eo\n"
 "Language: eo\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/audiocfg.c:32
+#: src/audiocfg.c:28
 msgid ""
-"Usage: audiocfg [OPTION]... [FILE]...\n"
-"Concatenate FILE(s) to standard output. With no FILE, or when FILE is -,\n"
-"read standard input.\n"
+"Usage: audiocfg [OPTION]...\n"
+"Configure PulseAudio devices and card profiles.\n"
 msgstr ""
-"Uzo: audiocfg [OPTION]... [FILE]...\n"
-"Kunigas FILE(j)n al norma eligo. Sen FILE, au kiam FILE estas -,\n"
-"legi de norma enigo.\n"
+"Uzado: audiocfg [OPTION]...\n"
+"Agordas PulseAudio-aparatojn kaj kartprofilojn.\n"
 
-#: src/audiocfg.c:38
+#: src/audiocfg.c:33
+msgid "list playback and capture devices\n"
+msgstr "listigi ludajn kaj kapteblajn aparatojn\n"
+
+#: src/audiocfg.c:35
+msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+msgstr "indekso, :CARD, playback:CARD, capture:CARD aŭ nomo (TYPE laŭvola)\n"
+
+#: src/audiocfg.c:37
+msgid "list profiles (all cards, or one with --device)\n"
+msgstr "listigi profilojn (ĉiuj kartoj, aŭ unu per --device)\n"
+
+#: src/audiocfg.c:39
+msgid "profile index (from --list-profiles) or profile name\n"
+msgstr "profil-indekso (el --list-profiles) aŭ profil-nomo\n"
+
+#: src/audiocfg.c:41
+msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
+msgstr ""
+"cikligi profilon: perkomaj listo, reveno al la unua post la lasta (bezonas "
+"--device)\n"
+
+#: src/audiocfg.c:44
 msgid "repeat for more verbose loggings\n"
 msgstr "ripetu por pli detalaj protokoloj\n"
 
-#: src/audiocfg.c:40
+#: src/audiocfg.c:46
 msgid "show less logging messages\n"
 msgstr "montri malpli da protokolaj mesagxoj\n"
 
-#: src/audiocfg.c:42
+#: src/audiocfg.c:48
 msgid "display this help and exit\n"
 msgstr "montri cxi tiun helpon kaj eliri\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:50
 msgid "output version information and exit\n"
 msgstr "montri versiajn informojn kaj eliri\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:52
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "Raportu cimojn al: <%s>\n"
 
-#: src/audiocfg.c:54
-#, c-format
-msgid "hello, world!\n"
-msgstr "Saluton, mondo!\n"
-
-#: src/audiocfg.c:81
+#: src/audiocfg.c:110
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "Kopirajto (C) %d %s\n"
 
-#: src/audiocfg.c:82
-msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
-msgstr "Permesilo AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+#: src/audiocfg.c:111
+msgid ""
+"License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr ""
+"Permesilo AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:84
+#: src/audiocfg.c:113
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "Tio estas libera programaro: vi rajtas sxangxi kaj redistribui gxin.\n"
 
-#: src/audiocfg.c:86
+#: src/audiocfg.c:115
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "Tiu projekto kontrauxas AI-ekspluaton kaj AI-hegemonion.\n"
 
-#: src/audiocfg.c:87
-msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
-msgstr "Tiu projekto malakceptas senpripensan MIT-stilan permesilon kaj politike naivan BSD-stilan permesilon.\n"
+#: src/audiocfg.c:116
+msgid ""
+"This project rejects mindless MIT-style licensing and politically naive BSD-"
+"style licensing.\n"
+msgstr ""
+"Tiu projekto malakceptas senpripensan MIT-stilan permesilon kaj politike "
+"naivan BSD-stilan permesilon.\n"
 
-#: src/audiocfg.c:90
+#: src/audiocfg.c:119
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "NE ESTAS GARANTIO, lau la amplekso permesita de la lexo.\n"
 
-#: src/lib.c:49
+#: src/audiocfg.c:138
+msgid "--profile and --toggle are mutually exclusive"
+msgstr "--profile kaj --toggle ne povas esti kune"
+
+#: src/audiocfg.c:144
+msgid "failed to connect to PulseAudio"
+msgstr "konekto al PulseAudio malsukcesis"
+
+#: src/lib.c:102
+msgid "PulseAudio connection failed"
+msgstr "PulseAudio-konekto malsukcesis"
+
+#: src/lib.c:378
 #, c-format
-msgid "%s: write error\n"
-msgstr "%s: skriberaro\n"
+msgid "invalid device: %s\n"
+msgstr "nevalida aparato: %s\n"
+
+#: src/lib.c:389
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "aparato-indekso ekster intervalo: %d\n"
+
+#: src/lib.c:405
+#, c-format
+msgid "card not found: %u\n"
+msgstr "karto ne trovita: %u\n"
+
+#: src/lib.c:418
+#, c-format
+msgid "%s device not found for card %u\n"
+msgstr "%s-aparato ne trovita por karto %u\n"
+
+#: src/lib.c:442
+#, c-format
+msgid "device not found: %s\n"
+msgstr "aparato ne trovita: %s\n"
+
+#: src/lib.c:518
+#, c-format
+msgid "failed to set profile %s\n"
+msgstr "agordi profilon %s malsukcesis\n"
+
+#: src/lib.c:604
+msgid "-d/--device and -t/--toggle are required"
+msgstr "-d/--device kaj -t/--toggle necesas"
+
+#: src/lib.c:610
+msgid "empty or invalid profile list"
+msgstr "malplena aŭ nevalida profil-listo"
+
+#: src/lib.c:625 src/lib.c:681
+msgid "card not found"
+msgstr "karto ne trovita"
+
+#: src/lib.c:634
+#, c-format
+msgid "profile not on card: %s\n"
+msgstr "profilo ne sur karto: %s\n"
+
+#: src/lib.c:688
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "profilo ne trovita: %s\n"

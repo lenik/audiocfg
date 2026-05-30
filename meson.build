@@ -209,12 +209,12 @@ foreach f : other_files
     other_list += f.substring(4)
 endforeach
 
-install_subdir(
-    'src',
-    install_dir: get_option('includedir'),
-    exclude_files: other_list,
-    strip_directory: true,
-)
+# install_subdir(
+#     'src',
+#     install_dir: get_option('includedir'),
+#     exclude_files: other_list,
+#     strip_directory: true,
+# )
 
 app_sources = [
     'src/audiocfg.c',

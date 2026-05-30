@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the audiocfg package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 16:27+0800\n"
+"Project-Id-Version: audiocfg 1.0.0\n"
+"Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
+"POT-Creation-Date: 2026-05-31 00:21+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,141 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/audiocfg.c:62
-#, c-format
-msgid "%s: write error\n"
-msgstr ""
-
-#: src/audiocfg.c:69
+#: src/audiocfg.c:28
 msgid ""
-"Usage: audiocfg [OPTION]... [FILE]...\n"
-"Concatenate FILE(s) to standard output. With no FILE, or when FILE is -,\n"
-"read standard input.\n"
+"Usage: audiocfg [OPTION]...\n"
+"Configure PulseAudio devices and card profiles.\n"
 msgstr ""
 
-#: src/audiocfg.c:75
+#: src/audiocfg.c:33
+msgid "list playback and capture devices\n"
+msgstr ""
+
+#: src/audiocfg.c:35
+msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+msgstr ""
+
+#: src/audiocfg.c:37
+msgid "list profiles (all cards, or one with --device)\n"
+msgstr ""
+
+#: src/audiocfg.c:39
+msgid "profile index (from --list-profiles) or profile name\n"
+msgstr ""
+
+#: src/audiocfg.c:41
+msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
+msgstr ""
+
+#: src/audiocfg.c:44
 msgid "repeat for more verbose loggings\n"
 msgstr ""
 
-#: src/audiocfg.c:77
+#: src/audiocfg.c:46
 msgid "show less logging messages\n"
 msgstr ""
 
-#: src/audiocfg.c:79
+#: src/audiocfg.c:48
 msgid "display this help and exit\n"
 msgstr ""
 
-#: src/audiocfg.c:81
+#: src/audiocfg.c:50
 msgid "output version information and exit\n"
 msgstr ""
 
-#: src/audiocfg.c:83
+#: src/audiocfg.c:52
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr ""
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:110
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr ""
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:111
 msgid ""
 "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr ""
 
-#: src/audiocfg.c:118
+#: src/audiocfg.c:113
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr ""
 
-#: src/audiocfg.c:120
+#: src/audiocfg.c:115
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr ""
 
-#: src/audiocfg.c:121
+#: src/audiocfg.c:116
 msgid ""
 "This project rejects mindless MIT-style licensing and politically naive BSD-"
 "style licensing.\n"
 msgstr ""
 
-#: src/audiocfg.c:124
+#: src/audiocfg.c:119
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+
+#: src/audiocfg.c:138
+msgid "--profile and --toggle are mutually exclusive"
+msgstr ""
+
+#: src/audiocfg.c:144
+msgid "failed to connect to PulseAudio"
+msgstr ""
+
+#: src/lib.c:102
+msgid "PulseAudio connection failed"
+msgstr ""
+
+#: src/lib.c:378
+#, c-format
+msgid "invalid device: %s\n"
+msgstr ""
+
+#: src/lib.c:389
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr ""
+
+#: src/lib.c:405
+#, c-format
+msgid "card not found: %u\n"
+msgstr ""
+
+#: src/lib.c:418
+#, c-format
+msgid "%s device not found for card %u\n"
+msgstr ""
+
+#: src/lib.c:442
+#, c-format
+msgid "device not found: %s\n"
+msgstr ""
+
+#: src/lib.c:518
+#, c-format
+msgid "failed to set profile %s\n"
+msgstr ""
+
+#: src/lib.c:604
+msgid "-d/--device and -t/--toggle are required"
+msgstr ""
+
+#: src/lib.c:610
+msgid "empty or invalid profile list"
+msgstr ""
+
+#: src/lib.c:625 src/lib.c:681
+msgid "card not found"
+msgstr ""
+
+#: src/lib.c:634
+#, c-format
+msgid "profile not on card: %s\n"
+msgstr ""
+
+#: src/lib.c:688
+#, c-format
+msgid "profile not found: %s\n"
 msgstr ""

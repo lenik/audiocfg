@@ -45,6 +45,7 @@
 *.log
 *.log.[0-9]*
 *.lot
+*.mo
 *.o
 *.orig
 *.out

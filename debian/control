@@ -14,4 +14,5 @@ Depends:
     ${misc:Depends}
 Description: PulseAudio device and profile configuration utility
  audiocfg lists PulseAudio playback and capture devices, shows card
- profiles, and sets the active profile on a selected card.
+ profiles, sets the active profile on a selected card, and can cycle
+ through a list of profiles with --toggle.

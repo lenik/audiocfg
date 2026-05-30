@@ -1,49 +1,40 @@
-本文件由模板生成。
-除项目名称和程序名称外，其余内容均为占位符。
-请根据当前项目的具体情况重写此文档。
-
 # audiocfg
 
-`audiocfg` 是一个基于 Meson 的小型 C/C++ 命令行应用项目模板。  
-`audiocfg` 是此模板中的一个**示例应用**；同一仓库中可以继续添加更多应用。
+`audiocfg` 是一个用于 PulseAudio 的小型命令行工具：列出播放与采集设备、列出声卡配置文件，并在指定声卡上切换活动配置文件。
 
-## 仓库结构
-
-- `src/` - 应用与共享模块源码
-- `tests/` - 使用 Check 框架的单元测试（`*_unit.c`）
-- `debian/` - Debian 打包元数据
-- `meson.build` - 顶层构建定义与辅助目标
-
-## 示例应用：`audiocfg`
-
-`audiocfg` 是一个类似 `cat` 的工具：
+## 用法
 
 ```bash
-audiocfg [OPTION]... [FILE]...
+audiocfg --list
+audiocfg --list-profiles
+audiocfg --list-profiles --device 1
+audiocfg --list-profiles --device playback:48
+audiocfg --device 1 --profile 2
+audiocfg --device playback:48 --profile output:hdmi-stereo
+audiocfg --device playback:48 --toggle output:hdmi-stereo,off,output:hdmi-surround
 ```
 
-- 如果未提供 `FILE`，则从 `stdin` 读取。
-- 如果某个 `FILE` 为 `-`，则在该位置从 `stdin` 读取。
-- 输出写入 `stdout`。
+### 选项
 
-支持的选项：
+- `-l`, `--list` — 列出设备（1 起始索引，随后为类型、名称、描述、`(card N)`）
+- `-d`, `--device=DEVICE` — 来自 `--list` 的索引、`:CARD`、`playback:CARD`、`capture:CARD` 或名称
+- `-L`, `--list-profiles` — 列出声卡与配置文件索引（`*` 表示当前活动配置文件）
+- `-p`, `--profile=PROFILE` — 来自 `--list-profiles` 的配置文件索引或配置文件名称
+- `-t`, `--toggle=PROFILES` — 在逗号分隔的配置文件列表中循环切换（最后一项后回到第一项）
+- `-v`, `--verbose` / `-q`, `--quiet` — 日志级别
+- `-h`, `--help` / `--version`
 
-- `-v`, `--verbose`
-- `-q`, `--quiet`
-- `-h`, `--help`
-- `--version`
+配置文件是 PulseAudio **声卡**的属性。使用 `--device` 指定声卡标识符，或指定该声卡上的 sink/source。
 
 ## 构建与测试
 
 ### 构建依赖
 
 ```bash
-sudo apt install meson ninja-build gcc pkg-config check
+sudo apt install meson ninja-build gcc pkg-config check libbas-c-dev libpulse-dev
 ```
 
 ### 配置并构建
-
-使用绝对构建目录 `/build`：
 
 ```bash
 meson setup /build
@@ -56,54 +47,21 @@ ninja -C /build
 meson test -C /build
 ```
 
-Meson 会自动发现 `tests/*_unit.c` 中的单元测试并完成注册。
-
 ## i18n（gettext）
 
-`audiocfg` 使用 `po/` 下的 gettext 翻译文件（`*.po` 与生成的 `.mo` 文件）。
-
-- 安装后运行时从系统 locale 目录加载翻译。
-- 开发态运行（`/build/audiocfg`）若存在 `/build/po`，会优先使用项目内翻译资源。
-
-### 同步翻译词条
-
-使用 `posync` 从当前源码字符串同步词条：
+翻译文件位于 `po/` 目录。同步词条：
 
 ```bash
 ninja -C /build posync
 ```
 
-`posync` 会：
-
-- 为 `po/LINGUAS` 中每种语言补齐缺失消息
-- 移除源码中已不再使用的废弃消息
-
-### 构建翻译文件
-
-```bash
-ninja -C /build
-```
-
-### 快速测试语言
-
-建议优先使用 `LANGUAGE=<lang>`，在开发环境中选择更稳定：
-
-```bash
-LANGUAGE=ja /build/audiocfg -h
-LANGUAGE=zh_CN /build/audiocfg -h
-```
-
-`LANG=<lang>.<encoding>` 是否生效取决于系统是否已生成对应 locale。
-
-## 安装 / 符号链接辅助命令
-
-常规安装：
+## 安装
 
 ```bash
 meson install -C /build
 ```
 
-调试符号链接工作流（在已配置的安装前缀下）：
+在已配置的安装前缀下调试符号链接：
 
 ```bash
 ninja -C /build install-symlinks
@@ -120,6 +78,4 @@ dpkg-buildpackage -us -uc
 
 Copyright (C) 2026 Lenik <audiocfg@bodz.net>
 
-采用 **AGPL-3.0-or-later** 许可。  
-本项目明确反对 AI 剥削与 AI 霸权，反对无脑 MIT 式许可证和政治愚蠢的 BSD 式许可证。  
-完整文本及项目补充条款见 `LICENSE`。
+采用 **AGPL-3.0-or-later** 许可。

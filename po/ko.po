@@ -1,74 +1,154 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-24 22:31+0800\n"
+"Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
+"POT-Creation-Date: 2026-05-31 00:21+0800\n"
+"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"Last-Translator: Lenik <audiocfg@bodz.net>\n"
+"Language-Team: ko\n"
 "Language: ko\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/audiocfg.c:32
+#: src/audiocfg.c:28
 msgid ""
-"Usage: audiocfg [OPTION]... [FILE]...\n"
-"Concatenate FILE(s) to standard output. With no FILE, or when FILE is -,\n"
-"read standard input.\n"
+"Usage: audiocfg [OPTION]...\n"
+"Configure PulseAudio devices and card profiles.\n"
 msgstr ""
-"사용법: audiocfg [OPTION]... [FILE]...\n"
-"FILE 내용을 이어서 표준 출력으로 보냅니다. FILE이 없거나 FILE이 - 이면,\n"
-"표준 입력을 읽습니다.\n"
+"사용법: audiocfg [OPTION]...\n"
+"PulseAudio 장치와 카드 프로필을 설정합니다.\n"
 
-#: src/audiocfg.c:38
+#: src/audiocfg.c:33
+msgid "list playback and capture devices\n"
+msgstr "재생 및 캡처 장치 나열\n"
+
+#: src/audiocfg.c:35
+msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+msgstr "인덱스, :CARD, playback:CARD, capture:CARD 또는 이름(TYPE 선택)\n"
+
+#: src/audiocfg.c:37
+msgid "list profiles (all cards, or one with --device)\n"
+msgstr "프로필 나열(모든 카드, 또는 --device 로 하나)\n"
+
+#: src/audiocfg.c:39
+msgid "profile index (from --list-profiles) or profile name\n"
+msgstr "프로필 인덱스(--list-profiles 기준) 또는 프로필 이름\n"
+
+#: src/audiocfg.c:41
+msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
+msgstr "프로필 순환: 쉼표로 구분된 목록, 마지막 다음은 처음으로(--device 필요)\n"
+
+#: src/audiocfg.c:44
 msgid "repeat for more verbose loggings\n"
 msgstr "더 자세한 로그를 보려면 반복 지정\n"
 
-#: src/audiocfg.c:40
+#: src/audiocfg.c:46
 msgid "show less logging messages\n"
 msgstr "로그 메시지를 더 적게 표시\n"
 
-#: src/audiocfg.c:42
+#: src/audiocfg.c:48
 msgid "display this help and exit\n"
 msgstr "도움말을 표시하고 종료\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:50
 msgid "output version information and exit\n"
 msgstr "버전 정보를 표시하고 종료\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:52
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "버그 제보: <%s>\n"
 
-#: src/audiocfg.c:54
-#, c-format
-msgid "hello, world!\n"
-msgstr "안녕, 세상아!\n"
-
-#: src/audiocfg.c:81
+#: src/audiocfg.c:110
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "저작권 (C) %d %s\n"
 
-#: src/audiocfg.c:82
-msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+#: src/audiocfg.c:111
+msgid ""
+"License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr "라이선스 AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:84
+#: src/audiocfg.c:113
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "이것은 자유 소프트웨어이며 자유롭게 수정 및 재배포할 수 있습니다.\n"
 
-#: src/audiocfg.c:86
+#: src/audiocfg.c:115
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "이 프로젝트는 AI 착취와 AI 패권에 반대합니다.\n"
 
-#: src/audiocfg.c:87
-msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
+#: src/audiocfg.c:116
+msgid ""
+"This project rejects mindless MIT-style licensing and politically naive BSD-"
+"style licensing.\n"
 msgstr "이 프로젝트는 무비판적 MIT식 라이선스와 정치적으로 어리석은 BSD식 라이선스를 거부합니다.\n"
 
-#: src/audiocfg.c:90
+#: src/audiocfg.c:119
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "법이 허용하는 한 어떠한 보증도 없습니다.\n"
 
-#: src/lib.c:49
+#: src/audiocfg.c:138
+msgid "--profile and --toggle are mutually exclusive"
+msgstr "--profile 과 --toggle 은 함께 사용할 수 없습니다"
+
+#: src/audiocfg.c:144
+msgid "failed to connect to PulseAudio"
+msgstr "PulseAudio 연결 실패"
+
+#: src/lib.c:102
+msgid "PulseAudio connection failed"
+msgstr "PulseAudio 연결 실패"
+
+#: src/lib.c:378
 #, c-format
-msgid "%s: write error\n"
-msgstr "%s: 쓰기 오류\n"
+msgid "invalid device: %s\n"
+msgstr "잘못된 장치: %s\n"
+
+#: src/lib.c:389
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "장치 인덱스가 범위를 벗어남: %d\n"
+
+#: src/lib.c:405
+#, c-format
+msgid "card not found: %u\n"
+msgstr "카드를 찾을 수 없음: %u\n"
+
+#: src/lib.c:418
+#, c-format
+msgid "%s device not found for card %u\n"
+msgstr "카드 %2$u 에 %1$s 장치를 찾을 수 없음\n"
+
+#: src/lib.c:442
+#, c-format
+msgid "device not found: %s\n"
+msgstr "장치를 찾을 수 없음: %s\n"
+
+#: src/lib.c:518
+#, c-format
+msgid "failed to set profile %s\n"
+msgstr "프로필 %s 설정 실패\n"
+
+#: src/lib.c:604
+msgid "-d/--device and -t/--toggle are required"
+msgstr "-d/--device 와 -t/--toggle 이 필요합니다"
+
+#: src/lib.c:610
+msgid "empty or invalid profile list"
+msgstr "프로필 목록이 비어 있거나 잘못됨"
+
+#: src/lib.c:625 src/lib.c:681
+msgid "card not found"
+msgstr "카드를 찾을 수 없음"
+
+#: src/lib.c:634
+#, c-format
+msgid "profile not on card: %s\n"
+msgstr "카드에 프로필 없음: %s\n"
+
+#: src/lib.c:688
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "프로필을 찾을 수 없음: %s\n"
