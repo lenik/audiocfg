@@ -1,0 +1,91 @@
+.TH audiocfg 1 "@PROJECT_YEAR@" "@PROJECT_VERSION@" "User Commands"
+.SH NAME
+audiocfg \- configure PulseAudio devices and profiles
+.SH SYNOPSIS
+.B audiocfg
+.RI [ OPTION ]...
+.SH DESCRIPTION
+.B audiocfg
+connects to the PulseAudio server and lists audio endpoints or changes
+card profiles. Profiles apply to hardware cards; use
+.BR \-\-device
+with a card name or index, or with a sink or source on that card.
+.PP
+Playback sinks and capture sources are listed with
+.BR \-\-list .
+Available card profiles (active profile marked with
+.BR \(lq * \(rq)
+are listed with
+.BR \-\-list\-profiles .
+.SH OPTIONS
+.TP
+.BR \-l ", " \-\-list
+List playback and capture devices. Each line shows the kind, index,
+PulseAudio name, human-readable description, and parent card index.
+.TP
+.BR \-d ", " \-\-device=\fIDEVICE\fR
+Select a device for profile operations. \fIDEVICE\fR may be a card index
+or name, or a sink or source index or name on that card.
+.TP
+.BR \-L ", " \-\-list\-profiles
+List card profiles. Without
+.BR \-\-device ,
+profiles for every card are shown. With
+.BR \-\-device ,
+only the matching card is shown.
+.TP
+.BR \-p ", " \-\-profile=\fIPROFILE\fR
+Set the active profile on the card selected with
+.BR \-\-device .
+Both options are required for this action.
+.TP
+.BR \-t ", " \-\-toggle=\fIPROFILES\fR
+Cycle to the next profile on the card given by
+.BR \-\-device .
+\fIPROFILES\fR is a comma-separated list of profile names; if the active
+profile is the last in the list, the first profile is selected. If the active
+profile is not in the list, the first profile is selected.
+.TP
+.BR \-v ", " \-\-verbose
+Increase logging verbosity (may be repeated).
+.TP
+.BR \-q ", " \-\-quiet
+Decrease logging verbosity.
+.TP
+.BR \-h ", " \-\-help
+Print a usage summary and exit successfully.
+.TP
+.B \-\-version
+Print version and license information and exit successfully.
+.SH EXAMPLES
+List devices:
+.RS
+.B audiocfg \-\-list
+.RE
+List profiles for one card:
+.RS
+.B audiocfg \-\-list\-profiles \-\-device 0
+.RE
+Switch a card to an HDMI stereo profile:
+.RS
+.B audiocfg \-\-device alsa_card.pci\-0000_00_1f.3 \-\-profile output:hdmi\-stereo
+.RE
+Cycle through a fixed set of profiles:
+.RS
+.B audiocfg \-\-device playback:48 \-\-toggle output:hdmi\-stereo,off,output:hdmi\-surround
+.RE
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+An error occurred (invalid options, PulseAudio connection failure, unknown
+device, or profile change failure).
+.SH AUTHOR
+Written by @PROJECT_AUTHOR@ <@PROJECT_EMAIL@>.
+.SH COPYRIGHT
+Copyright \(co @PROJECT_YEAR@.
+License AGPL-3.0-or-later. This is free software: you are free to change and
+redistribute it under the terms of the GNU Affero General Public License.
+There is NO WARRANTY, to the extent permitted by law.

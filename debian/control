@@ -1,0 +1,17 @@
+Source: audiocfg
+Section: utils
+Priority: optional
+Maintainer: Lenik <audiocfg@bodz.net>
+Build-Depends: debhelper-compat (= 13), meson, ninja-build, pkgconf, check, libbas-c-dev, libpulse-dev
+Standards-Version: 4.6.0
+Homepage: https://github.com/lenik/audiocfg
+Rules-Requires-Root: no
+
+Package: audiocfg
+Architecture: any
+Depends: 
+    ${shlibs:Depends}, 
+    ${misc:Depends}
+Description: PulseAudio device and profile configuration utility
+ audiocfg lists PulseAudio playback and capture devices, shows card
+ profiles, and sets the active profile on a selected card.
