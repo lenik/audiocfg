@@ -16,7 +16,7 @@ audiocfg --device playback:48 --toggle output:hdmi-stereo,off,output:hdmi-surrou
 
 ### 选项
 
-- `-l`, `--list` — 列出设备（1 起始索引，随后为类型、名称、描述、`(card N)`）
+- `-l`, `--list` — 列出设备（1 起始索引，随后为类型、名称、描述、`(card N)`；暂停、不可用或未由当前配置文件暴露的设备会标注 `(disabled)`）
 - `-d`, `--device=DEVICE` — 来自 `--list` 的索引、`:CARD`、`playback:CARD`、`capture:CARD` 或名称
 - `-L`, `--list-profiles` — 列出声卡与配置文件索引（`*` 表示当前活动配置文件）
 - `-p`, `--profile=PROFILE` — 来自 `--list-profiles` 的配置文件索引或配置文件名称

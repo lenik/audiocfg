@@ -29,6 +29,7 @@ typedef struct {
     uint32_t card;
     char *name;
     char *description;
+    int disabled;
 } acfg_dev_t;
 
 typedef struct {
@@ -37,12 +38,26 @@ typedef struct {
 } acfg_profile_t;
 
 typedef struct {
+    char *name;
+    char *desc;
+    int direction;
+} acfg_port_t;
+
+typedef struct {
     uint32_t pa_index;
     char *name;
     char *active_profile;
     acfg_profile_t *profiles;
     size_t n_profiles;
+    acfg_port_t *ports;
+    size_t n_ports;
 } acfg_card_t;
+
+typedef struct {
+    uint32_t card;
+    enum acfg_kind kind;
+    char *port_name;
+} acfg_cover_t;
 
 struct acfg_session {
     const char *prog;
@@ -53,6 +68,8 @@ struct acfg_session {
     size_t n_devs;
     acfg_card_t *cards;
     size_t n_cards;
+    acfg_cover_t *covers;
+    size_t n_covers;
 };
 
 static char *xstrdup(const char *s) {
@@ -74,6 +91,13 @@ static void free_catalog(struct acfg_session *s) {
     s->devs = NULL;
     s->n_devs = 0;
 
+    for (size_t i = 0; i < s->n_covers; i++) {
+        free(s->covers[i].port_name);
+    }
+    free(s->covers);
+    s->covers = NULL;
+    s->n_covers = 0;
+
     for (size_t c = 0; c < s->n_cards; c++) {
         free(s->cards[c].name);
         free(s->cards[c].active_profile);
@@ -82,6 +106,11 @@ static void free_catalog(struct acfg_session *s) {
             free(s->cards[c].profiles[p].desc);
         }
         free(s->cards[c].profiles);
+        for (size_t p = 0; p < s->cards[c].n_ports; p++) {
+            free(s->cards[c].ports[p].name);
+            free(s->cards[c].ports[p].desc);
+        }
+        free(s->cards[c].ports);
     }
     free(s->cards);
     s->cards = NULL;
@@ -218,8 +247,8 @@ int acfg_parse_device_spec(const char *spec, int *unified, int *kind, unsigned *
     return 0;
 }
 
-static int append_dev(struct acfg_session *s, enum acfg_kind kind, const pa_sink_info *sink,
-                      const pa_source_info *source) {
+static int append_dev(struct acfg_session *s, enum acfg_kind kind, uint32_t card, uint32_t pa_index,
+                      const char *name, const char *desc, int disabled) {
     acfg_dev_t *d = realloc(s->devs, (s->n_devs + 1) * sizeof *d);
     if (!d) {
         return -1;
@@ -227,20 +256,92 @@ static int append_dev(struct acfg_session *s, enum acfg_kind kind, const pa_sink
     s->devs = d;
     acfg_dev_t *e = &s->devs[s->n_devs++];
     e->kind = kind;
-    if (kind == ACFG_PLAYBACK && sink) {
-        e->pa_index = sink->index;
-        e->card = sink->card;
-        e->name = xstrdup(sink->name);
-        e->description = xstrdup(sink->description);
-    } else if (kind == ACFG_CAPTURE && source) {
-        e->pa_index = source->index;
-        e->card = source->card;
-        e->name = xstrdup(source->name);
-        e->description = xstrdup(source->description);
-    } else {
+    e->pa_index = pa_index;
+    e->card = card;
+    e->name = xstrdup(name);
+    e->description = xstrdup(desc);
+    e->disabled = disabled;
+    if (!e->name || !e->description) {
         return -1;
     }
     return 0;
+}
+
+static int is_monitor_source(const char *name) {
+    if (!name) {
+        return 0;
+    }
+    const char *dot = strrchr(name, '.');
+    return dot && strcmp(dot, ".monitor") == 0;
+}
+
+static int sink_is_disabled(const pa_sink_info *sink) {
+    if (sink->state == PA_SINK_SUSPENDED || sink->state == PA_SINK_UNLINKED) {
+        return 1;
+    }
+    if (sink->active_port && sink->active_port->available == PA_PORT_AVAILABLE_NO) {
+        return 1;
+    }
+    return 0;
+}
+
+static int source_is_disabled(const pa_source_info *source) {
+    if (source->state == PA_SOURCE_SUSPENDED || source->state == PA_SOURCE_UNLINKED) {
+        return 1;
+    }
+    if (source->active_port && source->active_port->available == PA_PORT_AVAILABLE_NO) {
+        return 1;
+    }
+    return 0;
+}
+
+static int add_cover(struct acfg_session *s, uint32_t card, enum acfg_kind kind, const char *port) {
+    acfg_cover_t *c = realloc(s->covers, (s->n_covers + 1) * sizeof *c);
+    if (!c) {
+        return -1;
+    }
+    s->covers = c;
+    acfg_cover_t *e = &s->covers[s->n_covers++];
+    e->card = card;
+    e->kind = kind;
+    e->port_name = port ? xstrdup(port) : xstrdup("*");
+    return e->port_name ? 0 : -1;
+}
+
+static int port_is_covered(struct acfg_session *s, uint32_t card, enum acfg_kind kind,
+                           const char *port) {
+    for (size_t i = 0; i < s->n_covers; i++) {
+        const acfg_cover_t *c = &s->covers[i];
+        if (c->card != card || c->kind != kind) {
+            continue;
+        }
+        if (strcmp(c->port_name, "*") == 0 || strcmp(c->port_name, port) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static void add_endpoint_covers(struct acfg_session *s, uint32_t card, enum acfg_kind kind,
+                                uint32_t n_ports, void **ports) {
+    if (card == PA_INVALID_INDEX) {
+        return;
+    }
+    if (n_ports == 0 || !ports) {
+        add_cover(s, card, kind, "*");
+        return;
+    }
+    for (uint32_t p = 0; p < n_ports; p++) {
+        const char *port_name = NULL;
+        if (kind == ACFG_PLAYBACK) {
+            port_name = ((pa_sink_port_info **)ports)[p]->name;
+        } else {
+            port_name = ((pa_source_port_info **)ports)[p]->name;
+        }
+        if (port_name) {
+            add_cover(s, card, kind, port_name);
+        }
+    }
 }
 
 static void load_sink_cb(pa_context *c, const pa_sink_info *i, int eol, void *ud) {
@@ -253,9 +354,12 @@ static void load_sink_cb(pa_context *c, const pa_sink_info *i, int eol, void *ud
     if (eol > 0) {
         return;
     }
-    if (append_dev(s, ACFG_PLAYBACK, i, NULL) != 0) {
+    if (append_dev(s, ACFG_PLAYBACK, i->card, i->index, i->name, i->description,
+                   sink_is_disabled(i)) != 0) {
         s->err = 1;
+        return;
     }
+    add_endpoint_covers(s, i->card, ACFG_PLAYBACK, i->n_ports, (void **)i->ports);
 }
 
 static void load_source_cb(pa_context *c, const pa_source_info *i, int eol, void *ud) {
@@ -268,22 +372,42 @@ static void load_source_cb(pa_context *c, const pa_source_info *i, int eol, void
     if (eol > 0) {
         return;
     }
-    if (append_dev(s, ACFG_CAPTURE, NULL, i) != 0) {
+    if (append_dev(s, ACFG_CAPTURE, i->card, i->index, i->name, i->description,
+                   source_is_disabled(i)) != 0) {
         s->err = 1;
+        return;
+    }
+    if (!is_monitor_source(i->name)) {
+        add_endpoint_covers(s, i->card, ACFG_CAPTURE, i->n_ports, (void **)i->ports);
     }
 }
 
-static int acfg_load_devices(struct acfg_session *s) {
-    free_catalog(s);
-    s->err = 0;
+static int append_disabled_ports(struct acfg_session *s) {
+    for (size_t c = 0; c < s->n_cards; c++) {
+        const acfg_card_t *card = &s->cards[c];
+        for (size_t p = 0; p < card->n_ports; p++) {
+            const acfg_port_t *port = &card->ports[p];
+            char name[512];
 
-    pa_operation *op = pa_context_get_sink_info_list(s->ctx, load_sink_cb, s);
-    if (run_op(s, op) != 0) {
-        return -1;
+            if ((port->direction & PA_DIRECTION_OUTPUT) &&
+                !port_is_covered(s, card->pa_index, ACFG_PLAYBACK, port->name)) {
+                snprintf(name, sizeof name, "%s:%s", card->name, port->name);
+                if (append_dev(s, ACFG_PLAYBACK, card->pa_index, PA_INVALID_INDEX, name,
+                               port->desc, 1) != 0) {
+                    return -1;
+                }
+            }
+            if ((port->direction & PA_DIRECTION_INPUT) &&
+                !port_is_covered(s, card->pa_index, ACFG_CAPTURE, port->name)) {
+                snprintf(name, sizeof name, "%s:%s", card->name, port->name);
+                if (append_dev(s, ACFG_CAPTURE, card->pa_index, PA_INVALID_INDEX, name,
+                               port->desc, 1) != 0) {
+                    return -1;
+                }
+            }
+        }
     }
-
-    op = pa_context_get_source_info_list(s->ctx, load_source_cb, s);
-    return run_op(s, op);
+    return 0;
 }
 
 static int append_card(struct acfg_session *s, const pa_card_info *i) {
@@ -297,6 +421,8 @@ static int append_card(struct acfg_session *s, const pa_card_info *i) {
     e->name = xstrdup(i->name);
     e->active_profile = xstrdup(i->active_profile->name);
     e->n_profiles = i->n_profiles;
+    e->n_ports = i->n_ports;
+    e->ports = NULL;
     e->profiles = calloc(e->n_profiles, sizeof *e->profiles);
     if (!e->profiles) {
         return -1;
@@ -304,6 +430,21 @@ static int append_card(struct acfg_session *s, const pa_card_info *i) {
     for (uint32_t n = 0; n < i->n_profiles; n++) {
         e->profiles[n].name = xstrdup(i->profiles[n].name);
         e->profiles[n].desc = xstrdup(i->profiles[n].description);
+    }
+    if (i->n_ports > 0) {
+        e->ports = calloc(i->n_ports, sizeof *e->ports);
+        if (!e->ports) {
+            return -1;
+        }
+        for (uint32_t n = 0; n < i->n_ports; n++) {
+            const pa_card_port_info *port = i->ports[n];
+            e->ports[n].name = xstrdup(port->name);
+            e->ports[n].desc = xstrdup(port->description);
+            e->ports[n].direction = port->direction;
+            if (!e->ports[n].name || !e->ports[n].desc) {
+                return -1;
+            }
+        }
     }
     return 0;
 }
@@ -323,6 +464,28 @@ static void load_card_cb(pa_context *c, const pa_card_info *i, int eol, void *ud
     }
 }
 
+static int acfg_load_devices(struct acfg_session *s) {
+    free_catalog(s);
+    s->err = 0;
+
+    pa_operation *op = pa_context_get_card_info_list(s->ctx, load_card_cb, s);
+    if (run_op(s, op) != 0) {
+        return -1;
+    }
+
+    op = pa_context_get_sink_info_list(s->ctx, load_sink_cb, s);
+    if (run_op(s, op) != 0) {
+        return -1;
+    }
+
+    op = pa_context_get_source_info_list(s->ctx, load_source_cb, s);
+    if (run_op(s, op) != 0) {
+        return -1;
+    }
+
+    return append_disabled_ports(s);
+}
+
 static int acfg_load_cards(struct acfg_session *s) {
     for (size_t c = 0; c < s->n_cards; c++) {
         free(s->cards[c].name);
@@ -332,6 +495,11 @@ static int acfg_load_cards(struct acfg_session *s) {
             free(s->cards[c].profiles[p].desc);
         }
         free(s->cards[c].profiles);
+        for (size_t p = 0; p < s->cards[c].n_ports; p++) {
+            free(s->cards[c].ports[p].name);
+            free(s->cards[c].ports[p].desc);
+        }
+        free(s->cards[c].ports);
     }
     free(s->cards);
     s->cards = NULL;
@@ -352,8 +520,8 @@ int acfg_list_devices(struct acfg_session *s, FILE *out) {
     }
     for (size_t i = 0; i < s->n_devs; i++) {
         const acfg_dev_t *e = &s->devs[i];
-        fprintf(out, "%zu\t%s\t%s\t%s\t(card %u)\n", i + 1, kind_str(e->kind), e->name,
-                e->description, e->card);
+        fprintf(out, "%zu\t%s\t%s\t%s\t(card %u)%s\n", i + 1, kind_str(e->kind), e->name,
+                e->description, e->card, e->disabled ? "\t(disabled)" : "");
     }
     return 0;
 }

@@ -1,5 +1,13 @@
+audiocfg (1.0.1) unstable; urgency=medium
+
+  * List disabled endpoints in --list: suspended or unavailable sinks/sources,
+    and card ports not exposed by the active profile.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Mon, 01 Jun 2026 08:24:49 +0800
+
 audiocfg (1.0.0) unstable; urgency=medium
 
   * Initial release: PulseAudio device listing and profile switching.
+  * Debian packaging, Chinese README, and translated CLI messages.
 
  -- Lenik (谢继雷) <lenik@bodz.net>  Sat, 31 May 2026 00:00:00 +0800

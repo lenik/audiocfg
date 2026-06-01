@@ -17,7 +17,7 @@ audiocfg --device playback:48 --toggle output:hdmi-stereo,off,output:hdmi-surrou
 
 ### Options
 
-- `-l`, `--list` — list devices (1-based index, then type, name, description, `(card N)`)
+- `-l`, `--list` — list devices (1-based index, then type, name, description, `(card N)`; `(disabled)` when suspended, unavailable, or not exposed by the active profile)
 - `-d`, `--device=DEVICE` — index from `--list`, `:CARD`, `playback:CARD`, `capture:CARD`, or name
 - `-L`, `--list-profiles` — list card and profile indices (`*` = active profile)
 - `-p`, `--profile=PROFILE` — profile index from `--list-profiles` or profile name
