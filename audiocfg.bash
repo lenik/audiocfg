@@ -6,7 +6,7 @@ _audiocfg()
 	_init_completion || return
 
 	if [[ $cur == -* ]]; then
-		COMPREPLY=($(compgen -W '--list --device --list-profiles --profile --toggle --verbose --quiet --help --version' -- "$cur"))
+		COMPREPLY=($(compgen -W '--list --device --list-profiles --profile --toggle --enable --disable --verbose --quiet --help --version' -- "$cur"))
 		return
 	fi
 

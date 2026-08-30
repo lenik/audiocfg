@@ -1,3 +1,10 @@
+audiocfg (1.0.2) unstable; urgency=medium
+
+  * Extend -d/--device: :NUM, /PATTERN (description), name globs; repeatable.
+  * Add -1/--enable and -0/--disable via card profile on/off.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Mon, 31 Aug 2026 00:52:00 +0800
+
 audiocfg (1.0.1) unstable; urgency=medium
 
   * List disabled endpoints in --list: suspended or unavailable sinks/sources,

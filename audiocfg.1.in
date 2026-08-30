@@ -6,8 +6,8 @@ audiocfg \- configure PulseAudio devices and profiles
 .RI [ OPTION ]...
 .SH DESCRIPTION
 .B audiocfg
-connects to the PulseAudio server and lists audio endpoints or changes
-card profiles. Profiles apply to hardware cards; use
+connects to the PulseAudio server and lists audio endpoints, enables or
+disables cards, or changes card profiles. Profiles apply to hardware cards; use
 .BR \-\-device
 with a card name or index, or with a sink or source on that card.
 .PP
@@ -23,28 +23,64 @@ are listed with
 List playback and capture devices. Each line shows the kind, index,
 PulseAudio name, human-readable description, and parent card index.
 .TP
-.BR \-d ", " \-\-device=\fIDEVICE\fR
-Select a device for profile operations. \fIDEVICE\fR may be a card index
-or name, or a sink or source index or name on that card.
+.BR \-d ", " \-\-device=\fICARD\fR
+Select devices for profile or enable/disable operations. May be repeated; each
+spec may match multiple devices. Forms:
+.RS
+.IP \(bu 2
+.BI : NUM
+card id
+.IP \(bu 2
+.BI / PATTERN
+match devices whose description contains
+.I PATTERN
+.IP \(bu 2
+other
+match PulseAudio name; shell-style globs are supported
+.IP \(bu 2
+.I N
+1-based index from
+.BR \-\-list
+.RE
+.IP
+An optional
+.B playback
+or
+.B capture
+prefix may appear immediately before
+.B :
+or
+.B /
+(for example
+.BR playback/USB
+or
+.BR capture:3 ).
 .TP
 .BR \-L ", " \-\-list\-profiles
 List card profiles. Without
 .BR \-\-device ,
 profiles for every card are shown. With
 .BR \-\-device ,
-only the matching card is shown.
+only matching cards are shown.
 .TP
 .BR \-p ", " \-\-profile=\fIPROFILE\fR
-Set the active profile on the card selected with
+Set the active profile on each card selected with
 .BR \-\-device .
-Both options are required for this action.
 .TP
 .BR \-t ", " \-\-toggle=\fIPROFILES\fR
-Cycle to the next profile on the card given by
+Cycle to the next profile on each card given by
 .BR \-\-device .
 \fIPROFILES\fR is a comma-separated list of profile names; if the active
 profile is the last in the list, the first profile is selected. If the active
 profile is not in the list, the first profile is selected.
+.TP
+.BR \-1 ", " \-\-enable
+Enable selected devices by setting each matched card to a usable non-off
+profile (preferring profiles that cover matched ports when applicable).
+.TP
+.BR \-0 ", " \-\-disable
+Disable selected devices by setting each matched card profile to
+.BR off .
 .TP
 .BR \-v ", " \-\-verbose
 Increase logging verbosity (may be repeated).
@@ -64,7 +100,15 @@ List devices:
 .RE
 List profiles for one card:
 .RS
-.B audiocfg \-\-list\-profiles \-\-device 0
+.B audiocfg \-\-list\-profiles \-\-device :0
+.RE
+Enable USB playback devices:
+.RS
+.B audiocfg \-d playback/USB \-\-enable
+.RE
+Disable ports matching a name glob:
+.RS
+.B audiocfg \-d \(dqalsa_card.pci\-0000_00_1f.3:*\-1\(dq \-\-disable
 .RE
 Switch a card to an HDMI stereo profile:
 .RS

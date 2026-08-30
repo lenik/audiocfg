@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the audiocfg package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: audiocfg 1.0.0\n"
-"Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
-"POT-Creation-Date: 2026-05-31 00:21+0800\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-31 01:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,11 +28,11 @@ msgid "list playback and capture devices\n"
 msgstr ""
 
 #: src/audiocfg.c:35
-msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+msgid "select devices (repeatable); see DEVICE SPEC below\n"
 msgstr ""
 
 #: src/audiocfg.c:37
-msgid "list profiles (all cards, or one with --device)\n"
+msgid "list profiles (all cards, or ones selected with --device)\n"
 msgstr ""
 
 #: src/audiocfg.c:39
@@ -43,115 +43,159 @@ msgstr ""
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
 msgstr ""
 
-#: src/audiocfg.c:44
-msgid "repeat for more verbose loggings\n"
+#: src/audiocfg.c:43
+msgid "enable selected devices (set a usable card profile)\n"
 msgstr ""
 
-#: src/audiocfg.c:46
-msgid "show less logging messages\n"
+#: src/audiocfg.c:45
+msgid "disable selected devices (set card profile to off)\n"
+msgstr ""
+
+#: src/audiocfg.c:47
+msgid "Device spec (optional playback|capture prefix before : or /):\n"
 msgstr ""
 
 #: src/audiocfg.c:48
-msgid "display this help and exit\n"
+msgid "  :NUM       card id\n"
+msgstr ""
+
+#: src/audiocfg.c:49
+msgid "  /PATTERN   description contains PATTERN\n"
 msgstr ""
 
 #: src/audiocfg.c:50
+msgid "  NAME       PulseAudio name (glob supported)\n"
+msgstr ""
+
+#: src/audiocfg.c:51
+msgid "  N          1-based index from --list\n"
+msgstr ""
+
+#: src/audiocfg.c:54
+msgid "repeat for more verbose loggings\n"
+msgstr ""
+
+#: src/audiocfg.c:56
+msgid "show less logging messages\n"
+msgstr ""
+
+#: src/audiocfg.c:58
+msgid "display this help and exit\n"
+msgstr ""
+
+#: src/audiocfg.c:60
 msgid "output version information and exit\n"
 msgstr ""
 
-#: src/audiocfg.c:52
+#: src/audiocfg.c:62
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr ""
 
-#: src/audiocfg.c:110
+#: src/audiocfg.c:144
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr ""
 
-#: src/audiocfg.c:111
+#: src/audiocfg.c:145
 msgid ""
 "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr ""
 
-#: src/audiocfg.c:113
+#: src/audiocfg.c:147
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr ""
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:149
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr ""
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:150
 msgid ""
 "This project rejects mindless MIT-style licensing and politically naive BSD-"
 "style licensing.\n"
 msgstr ""
 
-#: src/audiocfg.c:119
+#: src/audiocfg.c:153
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 
-#: src/audiocfg.c:138
+#: src/audiocfg.c:176
 msgid "--profile and --toggle are mutually exclusive"
 msgstr ""
 
-#: src/audiocfg.c:144
+#: src/audiocfg.c:181
+msgid "--enable and --disable are mutually exclusive"
+msgstr ""
+
+#: src/audiocfg.c:187
+msgid "--enable/--disable cannot be combined with --profile/--toggle"
+msgstr ""
+
+#: src/audiocfg.c:194
 msgid "failed to connect to PulseAudio"
 msgstr ""
 
-#: src/lib.c:102
+#: src/lib.c:142
 msgid "PulseAudio connection failed"
 msgstr ""
 
-#: src/lib.c:378
+#: src/lib.c:742
 #, c-format
 msgid "invalid device: %s\n"
 msgstr ""
 
-#: src/lib.c:389
+#: src/lib.c:751
 #, c-format
 msgid "device index out of range: %d\n"
 msgstr ""
 
-#: src/lib.c:405
+#: src/lib.c:760
 #, c-format
 msgid "card not found: %u\n"
 msgstr ""
 
-#: src/lib.c:418
-#, c-format
-msgid "%s device not found for card %u\n"
-msgstr ""
-
-#: src/lib.c:442
+#: src/lib.c:804 src/lib.c:841
 #, c-format
 msgid "device not found: %s\n"
 msgstr ""
 
-#: src/lib.c:518
+#: src/lib.c:850
+msgid "-d/--device is required"
+msgstr ""
+
+#: src/lib.c:870
+msgid "no matching devices"
+msgstr ""
+
+#: src/lib.c:994
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr ""
 
-#: src/lib.c:604
-msgid "-d/--device and -t/--toggle are required"
-msgstr ""
-
-#: src/lib.c:610
-msgid "empty or invalid profile list"
-msgstr ""
-
-#: src/lib.c:625 src/lib.c:681
+#: src/lib.c:1143 src/lib.c:1209 src/lib.c:1283
 msgid "card not found"
 msgstr ""
 
-#: src/lib.c:634
+#: src/lib.c:1152
 #, c-format
-msgid "profile not on card: %s\n"
+msgid "no usable profile for card %s\n"
 msgstr ""
 
-#: src/lib.c:688
+#: src/lib.c:1159 src/lib.c:1290
 #, c-format
 msgid "profile not found: %s\n"
+msgstr ""
+
+#: src/lib.c:1191
+msgid "-d/--device and -t/--toggle are required"
+msgstr ""
+
+#: src/lib.c:1197
+msgid "empty or invalid profile list"
+msgstr ""
+
+#: src/lib.c:1225
+#, c-format
+msgid "profile not on card: %s\n"
 msgstr ""
