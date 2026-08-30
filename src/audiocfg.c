@@ -31,14 +31,24 @@ void usage(FILE *out) {
     fputs("\n", out);
     fputs("  -l, --list           ", out);
     fputs(_("list playback and capture devices\n"), out);
-    fputs("  -d, --device=DEVICE  ", out);
-    fputs(_("index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"), out);
+    fputs("  -d, --device=CARD    ", out);
+    fputs(_("select devices (repeatable); see DEVICE SPEC below\n"), out);
     fputs("  -L, --list-profiles  ", out);
-    fputs(_("list profiles (all cards, or one with --device)\n"), out);
+    fputs(_("list profiles (all cards, or ones selected with --device)\n"), out);
     fputs("  -p, --profile=PROFILE  ", out);
     fputs(_("profile index (from --list-profiles) or profile name\n"), out);
     fputs("  -t, --toggle=PROFILES  ", out);
     fputs(_("cycle profile: comma-separated list, wrap after last (needs --device)\n"), out);
+    fputs("  -1, --enable         ", out);
+    fputs(_("enable selected devices (set a usable card profile)\n"), out);
+    fputs("  -0, --disable        ", out);
+    fputs(_("disable selected devices (set card profile to off)\n"), out);
+    fputs("\n", out);
+    fputs(_("Device spec (optional playback|capture prefix before : or /):\n"), out);
+    fputs(_("  :NUM       card id\n"), out);
+    fputs(_("  /PATTERN   description contains PATTERN\n"), out);
+    fputs(_("  NAME       PulseAudio name (glob supported)\n"), out);
+    fputs(_("  N          1-based index from --list\n"), out);
     fputs("\n", out);
     fputs("  -v, --verbose        ", out);
     fputs(_("repeat for more verbose loggings\n"), out);
@@ -58,7 +68,11 @@ int main(int argc, char **argv) {
 
     int do_list = 0;
     int do_list_profiles = 0;
-    const char *device = NULL;
+    int do_enable = 0;
+    int do_disable = 0;
+    const char **devices = NULL;
+    size_t n_devices = 0;
+    size_t devices_cap = 0;
     const char *profile = NULL;
     const char *toggle = NULL;
 
@@ -68,6 +82,8 @@ int main(int argc, char **argv) {
         {"list-profiles", no_argument, NULL, 'L'},
         {"profile", required_argument, NULL, 'p'},
         {"toggle", required_argument, NULL, 't'},
+        {"enable", no_argument, NULL, '1'},
+        {"disable", no_argument, NULL, '0'},
         {"verbose", no_argument, NULL, 'v'},
         {"quiet", no_argument, NULL, 'q'},
         {"help", no_argument, NULL, 'h'},
@@ -76,7 +92,7 @@ int main(int argc, char **argv) {
     };
 
     for (;;) {
-        int c = getopt_long(argc, argv, "ld:Lp:t:vqh", long_opts, NULL);
+        int c = getopt_long(argc, argv, "ld:Lp:t:10vqh", long_opts, NULL);
         if (c == -1) {
             break;
         }
@@ -85,7 +101,18 @@ int main(int argc, char **argv) {
             do_list = 1;
             break;
         case 'd':
-            device = optarg;
+            if (n_devices >= devices_cap) {
+                size_t ncap = devices_cap ? devices_cap * 2 : 4;
+                const char **grown = realloc(devices, ncap * sizeof *grown);
+                if (!grown) {
+                    fprintf(stderr, "%s: %s\n", exe, "out of memory");
+                    free(devices);
+                    return 1;
+                }
+                devices = grown;
+                devices_cap = ncap;
+            }
+            devices[n_devices++] = optarg;
             break;
         case 'L':
             do_list_profiles = 1;
@@ -96,6 +123,12 @@ int main(int argc, char **argv) {
         case 't':
             toggle = optarg;
             break;
+        case '1':
+            do_enable = 1;
+            break;
+        case '0':
+            do_disable = 1;
+            break;
         case 'v':
             log_more();
             break;
@@ -104,6 +137,7 @@ int main(int argc, char **argv) {
             break;
         case 'h':
             usage(stdout);
+            free(devices);
             return 0;
         case OPT_VERSION:
             printf("audiocfg %s\n", PROJECT_VERSION);
@@ -117,9 +151,11 @@ int main(int argc, char **argv) {
                     "BSD-style licensing.\n"),
                   stdout);
             fputs(_("There is NO WARRANTY, to the extent permitted by law.\n"), stdout);
+            free(devices);
             return 0;
         default:
             usage(stderr);
+            free(devices);
             return 1;
         }
     }
@@ -127,21 +163,36 @@ int main(int argc, char **argv) {
     if (optind < argc) {
         fprintf(stderr, "%s: %s\n", exe, "unexpected extra arguments");
         usage(stderr);
+        free(devices);
         return 1;
     }
 
-    if (!do_list && !do_list_profiles && !profile && !toggle) {
+    if (!do_list && !do_list_profiles && !profile && !toggle && !do_enable && !do_disable) {
         usage(stderr);
+        free(devices);
         return 1;
     }
     if (toggle && profile) {
         fprintf(stderr, "%s: %s\n", exe, _("--profile and --toggle are mutually exclusive"));
+        free(devices);
+        return 1;
+    }
+    if (do_enable && do_disable) {
+        fprintf(stderr, "%s: %s\n", exe, _("--enable and --disable are mutually exclusive"));
+        free(devices);
+        return 1;
+    }
+    if ((do_enable || do_disable) && (profile || toggle)) {
+        fprintf(stderr, "%s: %s\n", exe,
+                _("--enable/--disable cannot be combined with --profile/--toggle"));
+        free(devices);
         return 1;
     }
 
     struct acfg_session *sess = acfg_open(exe);
     if (!sess) {
         fprintf(stderr, "%s: %s\n", exe, _("failed to connect to PulseAudio"));
+        free(devices);
         return 1;
     }
 
@@ -150,16 +201,24 @@ int main(int argc, char **argv) {
     if (do_list && acfg_list_devices(sess, stdout) != 0) {
         rc = 1;
     }
-    if (rc == 0 && do_list_profiles && acfg_list_profiles(sess, device, stdout) != 0) {
+    if (rc == 0 && do_list_profiles &&
+        acfg_list_profiles(sess, devices, n_devices, stdout) != 0) {
         rc = 1;
     }
-    if (rc == 0 && profile && acfg_set_profile(sess, device, profile) != 0) {
+    if (rc == 0 && profile && acfg_set_profile(sess, devices, n_devices, profile) != 0) {
         rc = 1;
     }
-    if (rc == 0 && toggle && acfg_toggle_profiles(sess, device, toggle) != 0) {
+    if (rc == 0 && toggle && acfg_toggle_profiles(sess, devices, n_devices, toggle) != 0) {
+        rc = 1;
+    }
+    if (rc == 0 && do_enable && acfg_set_enabled(sess, devices, n_devices, 1) != 0) {
+        rc = 1;
+    }
+    if (rc == 0 && do_disable && acfg_set_enabled(sess, devices, n_devices, 0) != 0) {
         rc = 1;
     }
 
     acfg_close(sess);
+    free(devices);
     return rc;
 }
