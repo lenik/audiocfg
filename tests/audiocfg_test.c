@@ -2,7 +2,7 @@
 
 #include <check.h>
 
-#include "../src/lib.h"
+#include "../src/acfg.h"
 
 START_TEST(test_acfg_match_name) {
     ck_assert(acfg_match_name("alsa_output.pci", NULL, "alsa_output.pci"));

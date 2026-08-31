@@ -9,7 +9,7 @@
 #include "audiocfg.h"
 
 #include "config.h"
-#include "lib.h"
+#include "acfg.h"
 
 #include <bas/locale/i18n.h>
 #include <bas/log/deflog.h>
