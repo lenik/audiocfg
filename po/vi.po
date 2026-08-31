@@ -38,9 +38,7 @@ msgstr "chỉ mục profile (từ --list-profiles) hoặc tên profile\n"
 
 #: src/audiocfg.c:41
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
-msgstr ""
-"chuyển vòng profile: danh sách phân tách bằng dấu phẩy, quay lại đầu sau mục"
-" cuối (cần --device)\n"
+msgstr "chuyển vòng profile: danh sách phân tách bằng dấu phẩy, quay lại đầu sau mục cuối (cần --device)\n"
 
 #: src/audiocfg.c:44
 msgid "repeat for more verbose loggings\n"
@@ -69,10 +67,8 @@ msgid "Copyright (C) %d %s\n"
 msgstr "Bản quyền (C) %d %s\n"
 
 #: src/audiocfg.c:111
-msgid ""
-"License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
-msgstr ""
-"Giấy phép AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr "Giấy phép AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
 #: src/audiocfg.c:113
 msgid "This is free software: you are free to change and redistribute it.\n"
@@ -83,12 +79,8 @@ msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "Dự án này phản đối bóc lột AI và bá quyền AI.\n"
 
 #: src/audiocfg.c:116
-msgid ""
-"This project rejects mindless MIT-style licensing and politically naive BSD-"
-"style licensing.\n"
-msgstr ""
-"Dự án này bác bỏ kiểu cấp phép MIT máy móc và kiểu cấp phép BSD ngây ngô về "
-"chính trị.\n"
+msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
+msgstr "Dự án này bác bỏ kiểu cấp phép MIT máy móc và kiểu cấp phép BSD ngây ngô về chính trị.\n"
 
 #: src/audiocfg.c:119
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"

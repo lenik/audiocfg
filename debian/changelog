@@ -1,3 +1,15 @@
+audiocfg (1.0.3) unstable; urgency=medium
+
+  * Build as a standalone CLI only: drop shared/static library and pkg-config.
+  * Split PulseAudio helpers into src/{session,parse,catalog,select,profile}.c
+    and rename the public header to src/acfg.h (no lib* source names).
+  * Align with zephyr packaging: AsciiDoc man pages via asciidoctor, VERSION,
+    debian/rules --builddirectory=debian/build, zfr version in Meson, and
+    multi-distro packaging/ scaffolding.
+  * Expand L1 gettext coverage (ar, es_MX) and unwrap .po catalogs.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Tue, 01 Sep 2026 01:06:17 +0800
+
 audiocfg (1.0.2) unstable; urgency=medium
 
   * Extend -d/--device: :NUM, /PATTERN (description), name globs; repeatable.

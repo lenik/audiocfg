@@ -2,7 +2,8 @@ Source: audiocfg
 Section: utils
 Priority: optional
 Maintainer: Lenik <audiocfg@bodz.net>
-Build-Depends: debhelper-compat (= 13), meson, ninja-build, pkgconf, check, libbas-c-dev, libpulse-dev
+Build-Depends: debhelper-compat (= 13), meson, ninja-build, pkgconf, check, libbas-c-dev, libpulse-dev,
+ asciidoctor
 Standards-Version: 4.6.0
 Homepage: https://github.com/lenik/audiocfg
 Rules-Requires-Root: no

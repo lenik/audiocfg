@@ -1,0 +1,107 @@
+= audiocfg(1)
+{project-author} <{project-email}>
+v{project-version}, {project-year}
+:doctype: manpage
+:manmanual: User Commands
+:mansource: audiocfg
+:man-linkstyle: blue R <>
+:nofooter:
+
+== NAME
+
+audiocfg - configure PulseAudio devices and profiles
+
+== SYNOPSIS
+
+*audiocfg* [_OPTION_]...
+
+== DESCRIPTION
+
+*audiocfg* connects to the PulseAudio server and lists audio endpoints, enables or disables cards, or changes card profiles. Profiles apply to hardware cards; use *--device* with a card name or index, or with a sink or source on that card.
+
+Playback sinks and capture sources are listed with *--list*. Available card profiles (active profile marked with *“***”)* are listed with *--list-profiles*.
+
+== OPTIONS
+
+*-l*, *--list*::
+  List playback and capture devices. Each line shows the kind, index, PulseAudio name, human-readable description, and parent card index.
+*-d*, *--device=__CARD__*::
+  Select devices for profile or enable/disable operations. May be repeated; each spec may match multiple devices. Forms:
+  +
+  * *:*_NUM_ card id
+  * */*_PATTERN_ match devices whose description contains _PATTERN_
+  * other match PulseAudio name; shell-style globs are supported
+  * _N_ 1-based index from *--list*
+  +
+  An optional *playback* or *capture* prefix may appear immediately before *:* or */* (for example *playback/USB* or *capture:3*).
+*-L*, *--list-profiles*::
+  List card profiles. Without *--device*, profiles for every card are shown. With *--device*, only matching cards are shown.
+*-p*, *--profile=__PROFILE__*::
+  Set the active profile on each card selected with *--device*.
+*-t*, *--toggle=__PROFILES__*::
+  Cycle to the next profile on each card given by *--device*. _PROFILES_ is a comma-separated list of profile names; if the active profile is the last in the list, the first profile is selected. If the active profile is not in the list, the first profile is selected.
+*-1*, *--enable*::
+  Enable selected devices by setting each matched card to a usable non-off profile (preferring profiles that cover matched ports when applicable).
+*-0*, *--disable*::
+  Disable selected devices by setting each matched card profile to *off*.
+*-v*, *--verbose*::
+  Increase logging verbosity (may be repeated).
+*-q*, *--quiet*::
+  Decrease logging verbosity.
+*-h*, *--help*::
+  Print a usage summary and exit successfully.
+*--version*::
+  Print version and license information and exit successfully.
+
+== EXAMPLES
+
+List devices:
+
+____
+*audiocfg --list*
+____
+
+List profiles for one card:
+
+____
+*audiocfg --list-profiles --device :0*
+____
+
+Enable USB playback devices:
+
+____
+*audiocfg -d playback/USB --enable*
+____
+
+Disable ports matching a name glob:
+
+____
+*audiocfg -d "alsa_card.pci-0000_00_1f.3:*-1" --disable*
+____
+
+Switch a card to an HDMI stereo profile:
+
+____
+*audiocfg --device alsa_card.pci-0000_00_1f.3 --profile output:hdmi-stereo*
+____
+
+Cycle through a fixed set of profiles:
+
+____
+*audiocfg --device playback:48 --toggle output:hdmi-stereo,off,output:hdmi-surround*
+____
+
+== EXIT STATUS
+
+*0*::
+  Success.
+*1*::
+  An error occurred (invalid options, PulseAudio connection failure, unknown device, or profile change failure).
+
+== AUTHOR
+
+Written by @PROJECT_AUTHOR@ <@PROJECT_EMAIL@>.
+
+== COPYRIGHT
+
+Copyright © @PROJECT_YEAR@. License AGPL-3.0-or-later. This is free software: you are free to change and redistribute it under the terms of the GNU Affero General Public License. There is NO WARRANTY, to the extent permitted by law.
