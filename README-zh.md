@@ -21,7 +21,7 @@ audiocfg -d 'alsa_card.pci-0000_00_1f.3:*-1' --disable
 - `-l`, `--list` — 列出设备（1 起始索引，随后为类型、名称、描述、`(card N)`；暂停、不可用或未由当前配置文件暴露的设备会标注 `(disabled)`）
 - `-d`, `--device=CARD` — 选择一个或多个设备（可重复）。规格形式：
   - `:NUM` — 声卡 id
-  - `/PATTERN` — 描述包含 `PATTERN`
+  - `/PATTERN` — 描述或名称包含 `PATTERN`
   - `NAME` — PulseAudio 名称（支持 glob）
   - `N` — 来自 `--list` 的 1 起始索引
   - 可选在 `:` 或 `/` 前加 `playback` / `capture` 前缀（如 `playback/USB`、`capture:3`）

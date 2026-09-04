@@ -1,3 +1,10 @@
+audiocfg (1.0.4) unstable; urgency=medium
+
+  * Make -d /PATTERN also match PulseAudio names so disabled/synthetic
+    endpoints remain selectable (e.g. playback/USB --enable after profile off).
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Fri, 04 Sep 2026 21:18:51 +0800
+
 audiocfg (1.0.3) unstable; urgency=medium
 
   * Build as a standalone CLI only: drop shared/static library and pkg-config.

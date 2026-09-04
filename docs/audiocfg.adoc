@@ -29,7 +29,7 @@ Playback sinks and capture sources are listed with *--list*. Available card prof
   Select devices for profile or enable/disable operations. May be repeated; each spec may match multiple devices. Forms:
   +
   * *:*_NUM_ card id
-  * */*_PATTERN_ match devices whose description contains _PATTERN_
+  * */*_PATTERN_ match devices whose description or name contains _PATTERN_
   * other match PulseAudio name; shell-style globs are supported
   * _N_ 1-based index from *--list*
   +

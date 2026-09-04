@@ -23,7 +23,7 @@ audiocfg -d 'alsa_card.pci-0000_00_1f.3:*-1' --disable
 - `-l`, `--list` — list devices (1-based index, then type, name, description, `(card N)`; `(disabled)` when suspended, unavailable, or not exposed by the active profile)
 - `-d`, `--device=CARD` — select one or more devices (repeatable). Spec forms:
   - `:NUM` — card id
-  - `/PATTERN` — description contains `PATTERN`
+  - `/PATTERN` — description or name contains `PATTERN`
   - `NAME` — PulseAudio name (glob supported)
   - `N` — 1-based index from `--list`
   - optional `playback` or `capture` prefix before `:` or `/` (e.g. `playback/USB`, `capture:3`)
