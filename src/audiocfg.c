@@ -46,7 +46,7 @@ void usage(FILE *out) {
     fputs("\n", out);
     fputs(_("Device spec (optional playback|capture prefix before : or /):\n"), out);
     fputs(_("  :NUM       card id\n"), out);
-    fputs(_("  /PATTERN   description contains PATTERN\n"), out);
+    fputs(_("  /PATTERN   description or name contains PATTERN\n"), out);
     fputs(_("  NAME       PulseAudio name (glob supported)\n"), out);
     fputs(_("  N          1-based index from --list\n"), out);
     fputs("\n", out);

@@ -180,7 +180,12 @@ static int match_spec_to_sels(struct acfg_session *s, const char *spec, acfg_car
             if (kind >= 0 && (int)e->kind != kind) {
                 continue;
             }
-            if (!e->description || !strstr(e->description, pattern)) {
+            /* Match description, and also name: disabled/synthetic endpoints keep
+             * short port descriptions (e.g. "Speakers") while the PA name still
+             * carries the product token (e.g. ...usb-Generic_USB_Audio...). */
+            int hit = (e->description && strstr(e->description, pattern)) ||
+                      (e->name && strstr(e->name, pattern));
+            if (!hit) {
                 continue;
             }
             if (note_dev_selection(s, sels, n_sels, cap, e, kind) != 0) {

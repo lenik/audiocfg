@@ -6,7 +6,7 @@
 enum acfg_sel {
     ACFG_SEL_UNIFIED = 0, /* 1-based index from --list */
     ACFG_SEL_CARD = 1,    /* :NUM */
-    ACFG_SEL_DESC = 2,    /* /PATTERN (substring of description) */
+    ACFG_SEL_DESC = 2,    /* /PATTERN (substring of description or name) */
     ACFG_SEL_NAME = 3,    /* PulseAudio name, glob supported */
 };
 
