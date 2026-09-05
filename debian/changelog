@@ -1,3 +1,12 @@
+audiocfg (1.0.5) unstable; urgency=medium
+
+  * Align packaging/Meson/man pages to current zephyr style (zfr ize).
+  * update meson.build: remove duplicate individual man targets: audiocfg
+  * update meson.build: man foreach (1 puffs)
+  * update packaging/rpm/audiocfg.spec: %files synced (meson installs)
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Sat, 05 Sep 2026 09:45:22 +0800
+
 audiocfg (1.0.4) unstable; urgency=medium
 
   * Make -d /PATTERN also match PulseAudio names so disabled/synthetic

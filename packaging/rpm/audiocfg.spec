@@ -48,9 +48,9 @@ meson install -C build --destdir=%{buildroot}
 %{_bindir}/audiocfg
 %{_datadir}/bash-completion/completions/audiocfg
 %{_mandir}/man1/audiocfg.1*
-%{_mandir}/*/man1/audiocfg.1*
 %{_datadir}/locale/*/LC_MESSAGES/audiocfg.mo
-%{_datadir}/doc/%{name}/
+%{_mandir}/*/man1/audiocfg.1*
+%{_datadir}/doc/audiocfg/
 %changelog
 * Thu Aug 20 2026 Lenik <audiocfg@bodz.net>
 - Align spec with debian/control (Meson, AGPL-3.0-or-later).

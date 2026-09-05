@@ -116,25 +116,6 @@ install_data(
     install_dir: pkgdocdir,
 )
 
-custom_target(
-    'audiocfg-man',
-    input: 'docs/audiocfg.adoc',
-    output: 'audiocfg.1',
-    command: [
-        asciidoctor,
-        '-b', 'manpage',
-        '-a', 'project-version=' + meson.project_version(),
-        '-a', 'project-year=@0@'.format(project_year),
-        '-a', 'project-author=' + project_author,
-        '-a', 'project-email=' + project_email,
-        '-o', '@OUTPUT@',
-        '@INPUT@',
-    ],
-    build_by_default: true,
-    install: true,
-    install_dir: mandir / 'man1',
-)
-
 run_target(
     'look',
     command: [
@@ -212,3 +193,27 @@ run_target(
 if get_option('tests')
     subdir('tests')
 endif
+
+man_puffs = [
+    'audiocfg',
+]
+foreach puff : man_puffs
+  custom_target(
+    puff + '-man',
+    input: 'docs' / (puff + '.adoc'),
+    output: puff + '.1',
+    command: [
+      asciidoctor,
+      '-b', 'manpage',
+      '-a', 'project-version=' + meson.project_version(),
+      '-a', 'project-year=@0@'.format(project_year),
+      '-a', 'project-author=' + project_author,
+      '-a', 'project-email=' + project_email,
+      '-o', '@OUTPUT@',
+      '@INPUT@',
+    ],
+    build_by_default: true,
+    install: true,
+    install_dir: mandir / 'man1',
+  )
+endforeach
