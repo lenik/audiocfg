@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
 "Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
-"POT-Creation-Date: 2026-05-31 00:21+0800\n"
-"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"POT-Creation-Date: 2026-09-05 09:37+0800\n"
+"PO-Revision-Date: 2026-09-05 09:40+0800\n"
 "Last-Translator: Lenik <audiocfg@bodz.net>\n"
 "Language-Team: it\n"
 "Language: it\n"
@@ -25,12 +25,12 @@ msgid "list playback and capture devices\n"
 msgstr "elenca dispositivi di riproduzione e acquisizione\n"
 
 #: src/audiocfg.c:35
-msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
-msgstr "indice, :CARD, playback:CARD, capture:CARD o nome (TYPE opzionale)\n"
+msgid "select devices (repeatable); see DEVICE SPEC below\n"
+msgstr "seleziona dispositivi (ripetibile); vedi DEVICE SPEC sotto\n"
 
 #: src/audiocfg.c:37
-msgid "list profiles (all cards, or one with --device)\n"
-msgstr "elenca profili (tutte le schede, o una con --device)\n"
+msgid "list profiles (all cards, or ones selected with --device)\n"
+msgstr "elenca i profili (tutte le schede, o quelle selezionate con --device)\n"
 
 #: src/audiocfg.c:39
 msgid "profile index (from --list-profiles) or profile name\n"
@@ -40,112 +40,163 @@ msgstr "indice profilo (da --list-profiles) o nome profilo\n"
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
 msgstr "cicla profilo: elenco separato da virgole, torna al primo dopo l'ultimo (richiede --device)\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:43
+msgid "enable selected devices (set a usable card profile)\n"
+msgstr "abilita i dispositivi selezionati (imposta un profilo scheda utilizzabile)\n"
+
+#: src/audiocfg.c:45
+msgid "disable selected devices (set card profile to off)\n"
+msgstr "disabilita i dispositivi selezionati (imposta il profilo scheda a off)\n"
+
+#: src/audiocfg.c:47
+msgid "Device spec (optional playback|capture prefix before : or /):\n"
+msgstr "Specifica dispositivo (prefisso opzionale playback|capture prima di : o /):\n"
+
+#: src/audiocfg.c:48
+msgid "  :NUM       card id\n"
+msgstr "  :NUM       id scheda\n"
+
+#: src/audiocfg.c:49
+msgid "  /PATTERN   description or name contains PATTERN\n"
+msgstr "  /PATTERN   descrizione o nome contiene PATTERN\n"
+
+#: src/audiocfg.c:50
+msgid "  NAME       PulseAudio name (glob supported)\n"
+msgstr "  NAME       nome PulseAudio (glob supportato)\n"
+
+#: src/audiocfg.c:51
+msgid "  N          1-based index from --list\n"
+msgstr "  N          indice 1-based da --list\n"
+
+#: src/audiocfg.c:54
 msgid "repeat for more verbose loggings\n"
 msgstr "ripeti per ottenere log piu verbosi\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:56
 msgid "show less logging messages\n"
 msgstr "mostra meno messaggi di log\n"
 
-#: src/audiocfg.c:48
+#: src/audiocfg.c:58
 msgid "display this help and exit\n"
 msgstr "mostra questo aiuto ed esce\n"
 
-#: src/audiocfg.c:50
+#: src/audiocfg.c:60
 msgid "output version information and exit\n"
 msgstr "mostra le informazioni di versione ed esce\n"
 
-#: src/audiocfg.c:52
+#: src/audiocfg.c:62
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "Segnala bug a: <%s>\n"
 
-#: src/audiocfg.c:110
+#: src/audiocfg.c:144
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "Copyright (C) %d %s\n"
 
-#: src/audiocfg.c:111
+#: src/audiocfg.c:145
 msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr "Licenza AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:113
+#: src/audiocfg.c:147
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "Questo e software libero: puoi modificarlo e ridistribuirlo.\n"
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:149
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "Questo progetto si oppone allo sfruttamento dell'IA e all'egemonia dell'IA.\n"
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:150
 msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
 msgstr "Questo progetto rifiuta licenze in stile MIT acritiche e licenze in stile BSD politicamente ingenue.\n"
 
-#: src/audiocfg.c:119
+#: src/audiocfg.c:153
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "NON c'e ALCUNA GARANZIA, nei limiti consentiti dalla legge.\n"
 
-#: src/audiocfg.c:138
+#: src/audiocfg.c:176
 msgid "--profile and --toggle are mutually exclusive"
 msgstr "--profile e --toggle sono mutuamente esclusivi"
 
-#: src/audiocfg.c:144
+#: src/audiocfg.c:181
+msgid "--enable and --disable are mutually exclusive"
+msgstr "--enable e --disable si escludono a vicenda"
+
+#: src/audiocfg.c:187
+msgid "--enable/--disable cannot be combined with --profile/--toggle"
+msgstr "--enable/--disable non può essere combinato con --profile/--toggle"
+
+#: src/audiocfg.c:194
 msgid "failed to connect to PulseAudio"
 msgstr "connessione a PulseAudio fallita"
 
-#: src/lib.c:102
-msgid "PulseAudio connection failed"
-msgstr "connessione PulseAudio fallita"
-
-#: src/lib.c:378
-#, c-format
-msgid "invalid device: %s\n"
-msgstr "dispositivo non valido: %s\n"
-
-#: src/lib.c:389
-#, c-format
-msgid "device index out of range: %d\n"
-msgstr "indice dispositivo fuori intervallo: %d\n"
-
-#: src/lib.c:405
-#, c-format
-msgid "card not found: %u\n"
-msgstr "scheda non trovata: %u\n"
-
-#: src/lib.c:418
-#, c-format
-msgid "%s device not found for card %u\n"
-msgstr "dispositivo %s non trovato per la scheda %u\n"
-
-#: src/lib.c:442
-#, c-format
-msgid "device not found: %s\n"
-msgstr "dispositivo non trovato: %s\n"
-
-#: src/lib.c:518
+#: src/profile.c:126
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr "impostazione profilo %s fallita\n"
 
-#: src/lib.c:604
-msgid "-d/--device and -t/--toggle are required"
-msgstr "-d/--device e -t/--toggle sono obbligatori"
-
-#: src/lib.c:610
-msgid "empty or invalid profile list"
-msgstr "elenco profili vuoto o non valido"
-
-#: src/lib.c:625 src/lib.c:681
+#: src/profile.c:275 src/profile.c:341 src/profile.c:415
 msgid "card not found"
 msgstr "scheda non trovata"
 
-#: src/lib.c:634
+#: src/profile.c:284
+#, c-format
+msgid "no usable profile for card %s\n"
+msgstr "nessun profilo utilizzabile per la scheda %s\n"
+
+#: src/profile.c:291 src/profile.c:422
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "profilo non trovato: %s\n"
+
+#: src/profile.c:323
+msgid "-d/--device and -t/--toggle are required"
+msgstr "-d/--device e -t/--toggle sono obbligatori"
+
+#: src/profile.c:329
+msgid "empty or invalid profile list"
+msgstr "elenco profili vuoto o non valido"
+
+#: src/profile.c:357
 #, c-format
 msgid "profile not on card: %s\n"
 msgstr "profilo non presente sulla scheda: %s\n"
 
-#: src/lib.c:688
+#: src/select.c:131
 #, c-format
-msgid "profile not found: %s\n"
-msgstr "profilo non trovato: %s\n"
+msgid "invalid device: %s\n"
+msgstr "dispositivo non valido: %s\n"
+
+#: src/select.c:140
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "indice dispositivo fuori intervallo: %d\n"
+
+#: src/select.c:149
+#, c-format
+msgid "card not found: %u\n"
+msgstr "scheda non trovata: %u\n"
+
+#: src/select.c:198 src/select.c:235
+#, c-format
+msgid "device not found: %s\n"
+msgstr "dispositivo non trovato: %s\n"
+
+#: src/select.c:244
+msgid "-d/--device is required"
+msgstr "-d/--device è obbligatorio"
+
+#: src/select.c:264
+msgid "no matching devices"
+msgstr "nessun dispositivo corrispondente"
+
+#: src/session.c:74
+msgid "PulseAudio connection failed"
+msgstr "connessione PulseAudio fallita"
+
+#~ msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+#~ msgstr "indice, :CARD, playback:CARD, capture:CARD o nome (TYPE opzionale)\n"
+
+#, c-format
+#~ msgid "%s device not found for card %u\n"
+#~ msgstr "dispositivo %s non trovato per la scheda %u\n"

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
 "Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
-"POT-Creation-Date: 2026-05-31 00:21+0800\n"
-"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"POT-Creation-Date: 2026-09-05 09:37+0800\n"
+"PO-Revision-Date: 2026-09-05 09:40+0800\n"
 "Last-Translator: Lenik <audiocfg@bodz.net>\n"
 "Language-Team: ja\n"
 "Language: ja\n"
@@ -25,12 +25,12 @@ msgid "list playback and capture devices\n"
 msgstr "再生・録音デバイスを一覧表示\n"
 
 #: src/audiocfg.c:35
-msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
-msgstr "インデックス、:CARD、playback:CARD、capture:CARD、または名前（TYPE は省略可）\n"
+msgid "select devices (repeatable); see DEVICE SPEC below\n"
+msgstr "デバイスを選択（複数可）。下記のデバイス指定を参照\n"
 
 #: src/audiocfg.c:37
-msgid "list profiles (all cards, or one with --device)\n"
-msgstr "プロファイルを一覧表示（全カード、または --device で 1 枚）\n"
+msgid "list profiles (all cards, or ones selected with --device)\n"
+msgstr "プロファイルを一覧（全カード、または --device で選択したもの）\n"
 
 #: src/audiocfg.c:39
 msgid "profile index (from --list-profiles) or profile name\n"
@@ -40,112 +40,163 @@ msgstr "プロファイルのインデックス（--list-profiles 由来）ま�
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
 msgstr "プロファイルを循環: カンマ区切りリスト、最後の次は先頭へ（--device が必要）\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:43
+msgid "enable selected devices (set a usable card profile)\n"
+msgstr "選択したデバイスを有効化（利用可能なカードプロファイルを設定）\n"
+
+#: src/audiocfg.c:45
+msgid "disable selected devices (set card profile to off)\n"
+msgstr "選択したデバイスを無効化（カードプロファイルを off に設定）\n"
+
+#: src/audiocfg.c:47
+msgid "Device spec (optional playback|capture prefix before : or /):\n"
+msgstr "デバイス指定（: または / の前に任意で playback|capture 接頭辞）：\n"
+
+#: src/audiocfg.c:48
+msgid "  :NUM       card id\n"
+msgstr "  :NUM       カード id\n"
+
+#: src/audiocfg.c:49
+msgid "  /PATTERN   description or name contains PATTERN\n"
+msgstr "  /PATTERN   説明または名前に PATTERN を含む\n"
+
+#: src/audiocfg.c:50
+msgid "  NAME       PulseAudio name (glob supported)\n"
+msgstr "  NAME       PulseAudio 名（グロブ対応）\n"
+
+#: src/audiocfg.c:51
+msgid "  N          1-based index from --list\n"
+msgstr "  N          --list の 1 始まりインデックス\n"
+
+#: src/audiocfg.c:54
 msgid "repeat for more verbose loggings\n"
 msgstr "さらに詳細なログを出すには繰り返して指定\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:56
 msgid "show less logging messages\n"
 msgstr "ログメッセージを少なく表示\n"
 
-#: src/audiocfg.c:48
+#: src/audiocfg.c:58
 msgid "display this help and exit\n"
 msgstr "このヘルプを表示して終了\n"
 
-#: src/audiocfg.c:50
+#: src/audiocfg.c:60
 msgid "output version information and exit\n"
 msgstr "バージョン情報を表示して終了\n"
 
-#: src/audiocfg.c:52
+#: src/audiocfg.c:62
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "不具合報告先: <%s>\n"
 
-#: src/audiocfg.c:110
+#: src/audiocfg.c:144
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "Copyright (C) %d %s\n"
 
-#: src/audiocfg.c:111
+#: src/audiocfg.c:145
 msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr "ライセンス AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:113
+#: src/audiocfg.c:147
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "これはフリーソフトウェアです。自由に改変および再配布できます。\n"
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:149
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "このプロジェクトは AI 搾取と AI 覇権に反対します。\n"
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:150
 msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
 msgstr "このプロジェクトは無批判な MIT 型ライセンスと政治的に愚かな BSD 型ライセンスに反対します。\n"
 
-#: src/audiocfg.c:119
+#: src/audiocfg.c:153
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "法の許す範囲で一切の保証はありません。\n"
 
-#: src/audiocfg.c:138
+#: src/audiocfg.c:176
 msgid "--profile and --toggle are mutually exclusive"
 msgstr "--profile と --toggle は同時に指定できません"
 
-#: src/audiocfg.c:144
+#: src/audiocfg.c:181
+msgid "--enable and --disable are mutually exclusive"
+msgstr "--enable と --disable は同時に使えません"
+
+#: src/audiocfg.c:187
+msgid "--enable/--disable cannot be combined with --profile/--toggle"
+msgstr "--enable/--disable は --profile/--toggle と併用できません"
+
+#: src/audiocfg.c:194
 msgid "failed to connect to PulseAudio"
 msgstr "PulseAudio への接続に失敗しました"
 
-#: src/lib.c:102
-msgid "PulseAudio connection failed"
-msgstr "PulseAudio 接続に失敗しました"
-
-#: src/lib.c:378
-#, c-format
-msgid "invalid device: %s\n"
-msgstr "無効なデバイス: %s\n"
-
-#: src/lib.c:389
-#, c-format
-msgid "device index out of range: %d\n"
-msgstr "デバイスインデックスが範囲外: %d\n"
-
-#: src/lib.c:405
-#, c-format
-msgid "card not found: %u\n"
-msgstr "カードが見つかりません: %u\n"
-
-#: src/lib.c:418
-#, c-format
-msgid "%s device not found for card %u\n"
-msgstr "カード %2$u に %1$s デバイスが見つかりません\n"
-
-#: src/lib.c:442
-#, c-format
-msgid "device not found: %s\n"
-msgstr "デバイスが見つかりません: %s\n"
-
-#: src/lib.c:518
+#: src/profile.c:126
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr "プロファイル %s の設定に失敗しました\n"
 
-#: src/lib.c:604
-msgid "-d/--device and -t/--toggle are required"
-msgstr "-d/--device と -t/--toggle が必要です"
-
-#: src/lib.c:610
-msgid "empty or invalid profile list"
-msgstr "プロファイルリストが空または無効です"
-
-#: src/lib.c:625 src/lib.c:681
+#: src/profile.c:275 src/profile.c:341 src/profile.c:415
 msgid "card not found"
 msgstr "カードが見つかりません"
 
-#: src/lib.c:634
+#: src/profile.c:284
+#, c-format
+msgid "no usable profile for card %s\n"
+msgstr "カード %s に利用可能なプロファイルがありません\n"
+
+#: src/profile.c:291 src/profile.c:422
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "プロファイルが見つかりません: %s\n"
+
+#: src/profile.c:323
+msgid "-d/--device and -t/--toggle are required"
+msgstr "-d/--device と -t/--toggle が必要です"
+
+#: src/profile.c:329
+msgid "empty or invalid profile list"
+msgstr "プロファイルリストが空または無効です"
+
+#: src/profile.c:357
 #, c-format
 msgid "profile not on card: %s\n"
 msgstr "カードにプロファイルがありません: %s\n"
 
-#: src/lib.c:688
+#: src/select.c:131
 #, c-format
-msgid "profile not found: %s\n"
-msgstr "プロファイルが見つかりません: %s\n"
+msgid "invalid device: %s\n"
+msgstr "無効なデバイス: %s\n"
+
+#: src/select.c:140
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "デバイスインデックスが範囲外: %d\n"
+
+#: src/select.c:149
+#, c-format
+msgid "card not found: %u\n"
+msgstr "カードが見つかりません: %u\n"
+
+#: src/select.c:198 src/select.c:235
+#, c-format
+msgid "device not found: %s\n"
+msgstr "デバイスが見つかりません: %s\n"
+
+#: src/select.c:244
+msgid "-d/--device is required"
+msgstr "-d/--device が必要です"
+
+#: src/select.c:264
+msgid "no matching devices"
+msgstr "一致するデバイスがありません"
+
+#: src/session.c:74
+msgid "PulseAudio connection failed"
+msgstr "PulseAudio 接続に失敗しました"
+
+#~ msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+#~ msgstr "インデックス、:CARD、playback:CARD、capture:CARD、または名前（TYPE は省略可）\n"
+
+#, c-format
+#~ msgid "%s device not found for card %u\n"
+#~ msgstr "カード %2$u に %1$s デバイスが見つかりません\n"

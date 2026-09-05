@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the audiocfg package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 01:02+0800\n"
+"Project-Id-Version: audiocfg 1.0.4\n"
+"Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
+"POT-Creation-Date: 2026-09-05 09:37+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgid "  :NUM       card id\n"
 msgstr ""
 
 #: src/audiocfg.c:49
-msgid "  /PATTERN   description contains PATTERN\n"
+msgid "  /PATTERN   description or name contains PATTERN\n"
 msgstr ""
 
 #: src/audiocfg.c:50
@@ -98,8 +98,7 @@ msgid "Copyright (C) %d %s\n"
 msgstr ""
 
 #: src/audiocfg.c:145
-msgid ""
-"License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr ""
 
 #: src/audiocfg.c:147
@@ -111,9 +110,7 @@ msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr ""
 
 #: src/audiocfg.c:150
-msgid ""
-"This project rejects mindless MIT-style licensing and politically naive BSD-"
-"style licensing.\n"
+msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
 msgstr ""
 
 #: src/audiocfg.c:153
@@ -136,66 +133,66 @@ msgstr ""
 msgid "failed to connect to PulseAudio"
 msgstr ""
 
-#: src/lib.c:142
-msgid "PulseAudio connection failed"
-msgstr ""
-
-#: src/lib.c:742
-#, c-format
-msgid "invalid device: %s\n"
-msgstr ""
-
-#: src/lib.c:751
-#, c-format
-msgid "device index out of range: %d\n"
-msgstr ""
-
-#: src/lib.c:760
-#, c-format
-msgid "card not found: %u\n"
-msgstr ""
-
-#: src/lib.c:804 src/lib.c:841
-#, c-format
-msgid "device not found: %s\n"
-msgstr ""
-
-#: src/lib.c:850
-msgid "-d/--device is required"
-msgstr ""
-
-#: src/lib.c:870
-msgid "no matching devices"
-msgstr ""
-
-#: src/lib.c:994
+#: src/profile.c:126
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr ""
 
-#: src/lib.c:1143 src/lib.c:1209 src/lib.c:1283
+#: src/profile.c:275 src/profile.c:341 src/profile.c:415
 msgid "card not found"
 msgstr ""
 
-#: src/lib.c:1152
+#: src/profile.c:284
 #, c-format
 msgid "no usable profile for card %s\n"
 msgstr ""
 
-#: src/lib.c:1159 src/lib.c:1290
+#: src/profile.c:291 src/profile.c:422
 #, c-format
 msgid "profile not found: %s\n"
 msgstr ""
 
-#: src/lib.c:1191
+#: src/profile.c:323
 msgid "-d/--device and -t/--toggle are required"
 msgstr ""
 
-#: src/lib.c:1197
+#: src/profile.c:329
 msgid "empty or invalid profile list"
 msgstr ""
 
-#: src/lib.c:1225
+#: src/profile.c:357
 #, c-format
 msgid "profile not on card: %s\n"
+msgstr ""
+
+#: src/select.c:131
+#, c-format
+msgid "invalid device: %s\n"
+msgstr ""
+
+#: src/select.c:140
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr ""
+
+#: src/select.c:149
+#, c-format
+msgid "card not found: %u\n"
+msgstr ""
+
+#: src/select.c:198 src/select.c:235
+#, c-format
+msgid "device not found: %s\n"
+msgstr ""
+
+#: src/select.c:244
+msgid "-d/--device is required"
+msgstr ""
+
+#: src/select.c:264
+msgid "no matching devices"
+msgstr ""
+
+#: src/session.c:74
+msgid "PulseAudio connection failed"
 msgstr ""

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
 "Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
-"POT-Creation-Date: 2026-05-31 00:21+0800\n"
-"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"POT-Creation-Date: 2026-09-05 09:37+0800\n"
+"PO-Revision-Date: 2026-09-05 09:40+0800\n"
 "Last-Translator: Lenik <audiocfg@bodz.net>\n"
 "Language-Team: zh_CN\n"
 "Language: zh_CN\n"
@@ -25,12 +25,12 @@ msgid "list playback and capture devices\n"
 msgstr "列出播放与采集设备\n"
 
 #: src/audiocfg.c:35
-msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
-msgstr "索引、:CARD、playback:CARD、capture:CARD 或名称（类型可选）\n"
+msgid "select devices (repeatable); see DEVICE SPEC below\n"
+msgstr "选择设备（可重复）；参见下方设备规格\n"
 
 #: src/audiocfg.c:37
-msgid "list profiles (all cards, or one with --device)\n"
-msgstr "列出配置文件（全部声卡，或配合 --device 指定一张）\n"
+msgid "list profiles (all cards, or ones selected with --device)\n"
+msgstr "列出配置文件（全部声卡，或由 --device 选中的声卡）\n"
 
 #: src/audiocfg.c:39
 msgid "profile index (from --list-profiles) or profile name\n"
@@ -40,112 +40,163 @@ msgstr "配置文件索引（来自 --list-profiles）或配置文件名称\n"
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
 msgstr "循环切换配置文件：逗号分隔列表，最后一项后回到第一项（需要 --device）\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:43
+msgid "enable selected devices (set a usable card profile)\n"
+msgstr "启用所选设备（设置可用的声卡配置文件）\n"
+
+#: src/audiocfg.c:45
+msgid "disable selected devices (set card profile to off)\n"
+msgstr "禁用所选设备（将声卡配置文件设为 off）\n"
+
+#: src/audiocfg.c:47
+msgid "Device spec (optional playback|capture prefix before : or /):\n"
+msgstr "设备规格（可选在 : 或 / 前加 playback|capture 前缀）：\n"
+
+#: src/audiocfg.c:48
+msgid "  :NUM       card id\n"
+msgstr "  :NUM       声卡 id\n"
+
+#: src/audiocfg.c:49
+msgid "  /PATTERN   description or name contains PATTERN\n"
+msgstr "  /PATTERN   描述或名称包含 PATTERN\n"
+
+#: src/audiocfg.c:50
+msgid "  NAME       PulseAudio name (glob supported)\n"
+msgstr "  NAME       PulseAudio 名称（支持 glob）\n"
+
+#: src/audiocfg.c:51
+msgid "  N          1-based index from --list\n"
+msgstr "  N          来自 --list 的 1 起始索引\n"
+
+#: src/audiocfg.c:54
 msgid "repeat for more verbose loggings\n"
 msgstr "重复使用以输出更多详细日志\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:56
 msgid "show less logging messages\n"
 msgstr "显示更少的日志消息\n"
 
-#: src/audiocfg.c:48
+#: src/audiocfg.c:58
 msgid "display this help and exit\n"
 msgstr "显示此帮助并退出\n"
 
-#: src/audiocfg.c:50
+#: src/audiocfg.c:60
 msgid "output version information and exit\n"
 msgstr "输出版本信息并退出\n"
 
-#: src/audiocfg.c:52
+#: src/audiocfg.c:62
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "报告问题到：<%s>\n"
 
-#: src/audiocfg.c:110
+#: src/audiocfg.c:144
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "版权所有 (C) %d %s\n"
 
-#: src/audiocfg.c:111
+#: src/audiocfg.c:145
 msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr "许可证 AGPL-3.0-or-later：<https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:113
+#: src/audiocfg.c:147
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "这是自由软件：你可以自由修改并重新分发。\n"
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:149
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "本项目反对 AI 剥削与 AI 霸权。\n"
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:150
 msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
 msgstr "本项目反对无脑 MIT 式许可证和政治愚蠢 BSD 式许可证。\n"
 
-#: src/audiocfg.c:119
+#: src/audiocfg.c:153
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "在法律允许范围内，不提供任何担保。\n"
 
-#: src/audiocfg.c:138
+#: src/audiocfg.c:176
 msgid "--profile and --toggle are mutually exclusive"
 msgstr "--profile 与 --toggle 不能同时使用"
 
-#: src/audiocfg.c:144
+#: src/audiocfg.c:181
+msgid "--enable and --disable are mutually exclusive"
+msgstr "--enable 与 --disable 不能同时使用"
+
+#: src/audiocfg.c:187
+msgid "--enable/--disable cannot be combined with --profile/--toggle"
+msgstr "--enable/--disable 不能与 --profile/--toggle 同时使用"
+
+#: src/audiocfg.c:194
 msgid "failed to connect to PulseAudio"
 msgstr "连接 PulseAudio 失败"
 
-#: src/lib.c:102
-msgid "PulseAudio connection failed"
-msgstr "PulseAudio 连接失败"
-
-#: src/lib.c:378
-#, c-format
-msgid "invalid device: %s\n"
-msgstr "无效设备：%s\n"
-
-#: src/lib.c:389
-#, c-format
-msgid "device index out of range: %d\n"
-msgstr "设备索引超出范围：%d\n"
-
-#: src/lib.c:405
-#, c-format
-msgid "card not found: %u\n"
-msgstr "未找到声卡：%u\n"
-
-#: src/lib.c:418
-#, c-format
-msgid "%s device not found for card %u\n"
-msgstr "声卡 %2$u 未找到 %1$s 设备\n"
-
-#: src/lib.c:442
-#, c-format
-msgid "device not found: %s\n"
-msgstr "未找到设备：%s\n"
-
-#: src/lib.c:518
+#: src/profile.c:126
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr "设置配置文件 %s 失败\n"
 
-#: src/lib.c:604
-msgid "-d/--device and -t/--toggle are required"
-msgstr "需要 -d/--device 与 -t/--toggle"
-
-#: src/lib.c:610
-msgid "empty or invalid profile list"
-msgstr "配置文件列表为空或无效"
-
-#: src/lib.c:625 src/lib.c:681
+#: src/profile.c:275 src/profile.c:341 src/profile.c:415
 msgid "card not found"
 msgstr "未找到声卡"
 
-#: src/lib.c:634
+#: src/profile.c:284
+#, c-format
+msgid "no usable profile for card %s\n"
+msgstr "声卡 %s 没有可用的配置文件\n"
+
+#: src/profile.c:291 src/profile.c:422
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "未找到配置文件：%s\n"
+
+#: src/profile.c:323
+msgid "-d/--device and -t/--toggle are required"
+msgstr "需要 -d/--device 与 -t/--toggle"
+
+#: src/profile.c:329
+msgid "empty or invalid profile list"
+msgstr "配置文件列表为空或无效"
+
+#: src/profile.c:357
 #, c-format
 msgid "profile not on card: %s\n"
 msgstr "声卡上不存在配置文件：%s\n"
 
-#: src/lib.c:688
+#: src/select.c:131
 #, c-format
-msgid "profile not found: %s\n"
-msgstr "未找到配置文件：%s\n"
+msgid "invalid device: %s\n"
+msgstr "无效设备：%s\n"
+
+#: src/select.c:140
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "设备索引超出范围：%d\n"
+
+#: src/select.c:149
+#, c-format
+msgid "card not found: %u\n"
+msgstr "未找到声卡：%u\n"
+
+#: src/select.c:198 src/select.c:235
+#, c-format
+msgid "device not found: %s\n"
+msgstr "未找到设备：%s\n"
+
+#: src/select.c:244
+msgid "-d/--device is required"
+msgstr "需要 -d/--device"
+
+#: src/select.c:264
+msgid "no matching devices"
+msgstr "没有匹配的设备"
+
+#: src/session.c:74
+msgid "PulseAudio connection failed"
+msgstr "PulseAudio 连接失败"
+
+#~ msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+#~ msgstr "索引、:CARD、playback:CARD、capture:CARD 或名称（类型可选）\n"
+
+#, c-format
+#~ msgid "%s device not found for card %u\n"
+#~ msgstr "声卡 %2$u 未找到 %1$s 设备\n"

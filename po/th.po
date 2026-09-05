@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: audiocfg\n"
 "Report-Msgid-Bugs-To: audiocfg@bodz.net\n"
-"POT-Creation-Date: 2026-05-31 00:21+0800\n"
-"PO-Revision-Date: 2026-05-31 00:00+0800\n"
+"POT-Creation-Date: 2026-09-05 09:37+0800\n"
+"PO-Revision-Date: 2026-09-05 09:40+0800\n"
 "Last-Translator: Lenik <audiocfg@bodz.net>\n"
 "Language-Team: th\n"
 "Language: th\n"
@@ -25,12 +25,12 @@ msgid "list playback and capture devices\n"
 msgstr "แสดงรายการอุปกรณ์เล่นและบันทึก\n"
 
 #: src/audiocfg.c:35
-msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
-msgstr "ดัชนี, :CARD, playback:CARD, capture:CARD หรือชื่อ (TYPE ไม่บังคับ)\n"
+msgid "select devices (repeatable); see DEVICE SPEC below\n"
+msgstr "เลือกอุปกรณ์ (ระบุซ้ำได้); ดู DEVICE SPEC ด้านล่าง\n"
 
 #: src/audiocfg.c:37
-msgid "list profiles (all cards, or one with --device)\n"
-msgstr "แสดงโปรไฟล์ (ทุกการ์ด หรือหนึ่งการ์ดด้วย --device)\n"
+msgid "list profiles (all cards, or ones selected with --device)\n"
+msgstr "แสดงโปรไฟล์ (ทุกการ์ด หรือที่เลือกด้วย --device)\n"
 
 #: src/audiocfg.c:39
 msgid "profile index (from --list-profiles) or profile name\n"
@@ -40,112 +40,163 @@ msgstr "ดัชนีโปรไฟล์ (จาก --list-profiles) หร�
 msgid "cycle profile: comma-separated list, wrap after last (needs --device)\n"
 msgstr "สลับโปรไฟล์: รายการคั่นด้วยจุลภาค วนกลับหลังรายการสุดท้าย (ต้องมี --device)\n"
 
-#: src/audiocfg.c:44
+#: src/audiocfg.c:43
+msgid "enable selected devices (set a usable card profile)\n"
+msgstr "เปิดใช้อุปกรณ์ที่เลือก (ตั้งโปรไฟล์การ์ดที่ใช้ได้)\n"
+
+#: src/audiocfg.c:45
+msgid "disable selected devices (set card profile to off)\n"
+msgstr "ปิดใช้อุปกรณ์ที่เลือก (ตั้งโปรไฟล์การ์ดเป็น off)\n"
+
+#: src/audiocfg.c:47
+msgid "Device spec (optional playback|capture prefix before : or /):\n"
+msgstr "ข้อกำหนดอุปกรณ์ (คำนำหน้า playback|capture ก่อน : หรือ / ได้):\n"
+
+#: src/audiocfg.c:48
+msgid "  :NUM       card id\n"
+msgstr "  :NUM       รหัสการ์ด\n"
+
+#: src/audiocfg.c:49
+msgid "  /PATTERN   description or name contains PATTERN\n"
+msgstr "  /PATTERN   คำอธิบายหรือชื่อมี PATTERN\n"
+
+#: src/audiocfg.c:50
+msgid "  NAME       PulseAudio name (glob supported)\n"
+msgstr "  NAME       ชื่อ PulseAudio (รองรับ glob)\n"
+
+#: src/audiocfg.c:51
+msgid "  N          1-based index from --list\n"
+msgstr "  N          ดัชนีเริ่มที่ 1 จาก --list\n"
+
+#: src/audiocfg.c:54
 msgid "repeat for more verbose loggings\n"
 msgstr "ใส่ซ้ำเพื่อแสดงบันทึกแบบละเอียดมากขึ้น\n"
 
-#: src/audiocfg.c:46
+#: src/audiocfg.c:56
 msgid "show less logging messages\n"
 msgstr "แสดงข้อความบันทึกให้น้อยลง\n"
 
-#: src/audiocfg.c:48
+#: src/audiocfg.c:58
 msgid "display this help and exit\n"
 msgstr "แสดงความช่วยเหลือนี้และออก\n"
 
-#: src/audiocfg.c:50
+#: src/audiocfg.c:60
 msgid "output version information and exit\n"
 msgstr "แสดงข้อมูลเวอร์ชันและออก\n"
 
-#: src/audiocfg.c:52
+#: src/audiocfg.c:62
 #, c-format
 msgid "Report bugs to: <%s>\n"
 msgstr "รายงานบั๊กไปที่: <%s>\n"
 
-#: src/audiocfg.c:110
+#: src/audiocfg.c:144
 #, c-format
 msgid "Copyright (C) %d %s\n"
 msgstr "ลิขสิทธิ์ (C) %d %s\n"
 
-#: src/audiocfg.c:111
+#: src/audiocfg.c:145
 msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 msgstr "สัญญาอนุญาต AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
 
-#: src/audiocfg.c:113
+#: src/audiocfg.c:147
 msgid "This is free software: you are free to change and redistribute it.\n"
 msgstr "นี่คือซอฟต์แวร์เสรี คุณมีสิทธิ์แก้ไขและแจกจ่ายต่อได้\n"
 
-#: src/audiocfg.c:115
+#: src/audiocfg.c:149
 msgid "This project opposes AI exploitation and AI hegemony.\n"
 msgstr "โครงการนี้คัดค้านการเอาเปรียบด้วย AI และอำนาจนำของ AI\n"
 
-#: src/audiocfg.c:116
+#: src/audiocfg.c:150
 msgid "This project rejects mindless MIT-style licensing and politically naive BSD-style licensing.\n"
 msgstr "โครงการนี้ปฏิเสธใบอนุญาตแบบ MIT ที่ไร้วิจารณญาณ และใบอนุญาตแบบ BSD ที่โง่เขลาทางการเมือง\n"
 
-#: src/audiocfg.c:119
+#: src/audiocfg.c:153
 msgid "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr "ไม่มีการรับประกันใด ๆ ตามขอบเขตที่กฎหมายอนุญาต\n"
 
-#: src/audiocfg.c:138
+#: src/audiocfg.c:176
 msgid "--profile and --toggle are mutually exclusive"
 msgstr "--profile และ --toggle ใช้พร้อมกันไม่ได้"
 
-#: src/audiocfg.c:144
+#: src/audiocfg.c:181
+msgid "--enable and --disable are mutually exclusive"
+msgstr "--enable และ --disable ใช้ร่วมกันไม่ได้"
+
+#: src/audiocfg.c:187
+msgid "--enable/--disable cannot be combined with --profile/--toggle"
+msgstr "--enable/--disable ใช้ร่วมกับ --profile/--toggle ไม่ได้"
+
+#: src/audiocfg.c:194
 msgid "failed to connect to PulseAudio"
 msgstr "เชื่อมต่อ PulseAudio ไม่สำเร็จ"
 
-#: src/lib.c:102
-msgid "PulseAudio connection failed"
-msgstr "การเชื่อมต่อ PulseAudio ล้มเหลว"
-
-#: src/lib.c:378
-#, c-format
-msgid "invalid device: %s\n"
-msgstr "อุปกรณ์ไม่ถูกต้อง: %s\n"
-
-#: src/lib.c:389
-#, c-format
-msgid "device index out of range: %d\n"
-msgstr "ดัชนีอุปกรณ์เกินช่วง: %d\n"
-
-#: src/lib.c:405
-#, c-format
-msgid "card not found: %u\n"
-msgstr "ไม่พบการ์ด: %u\n"
-
-#: src/lib.c:418
-#, c-format
-msgid "%s device not found for card %u\n"
-msgstr "ไม่พบอุปกรณ์ %s สำหรับการ์ด %u\n"
-
-#: src/lib.c:442
-#, c-format
-msgid "device not found: %s\n"
-msgstr "ไม่พบอุปกรณ์: %s\n"
-
-#: src/lib.c:518
+#: src/profile.c:126
 #, c-format
 msgid "failed to set profile %s\n"
 msgstr "ตั้งโปรไฟล์ %s ไม่สำเร็จ\n"
 
-#: src/lib.c:604
-msgid "-d/--device and -t/--toggle are required"
-msgstr "ต้องระบุ -d/--device และ -t/--toggle"
-
-#: src/lib.c:610
-msgid "empty or invalid profile list"
-msgstr "รายการโปรไฟล์ว่างหรือไม่ถูกต้อง"
-
-#: src/lib.c:625 src/lib.c:681
+#: src/profile.c:275 src/profile.c:341 src/profile.c:415
 msgid "card not found"
 msgstr "ไม่พบการ์ด"
 
-#: src/lib.c:634
+#: src/profile.c:284
+#, c-format
+msgid "no usable profile for card %s\n"
+msgstr "ไม่พบโปรไฟล์ที่ใช้ได้สำหรับการ์ด %s\n"
+
+#: src/profile.c:291 src/profile.c:422
+#, c-format
+msgid "profile not found: %s\n"
+msgstr "ไม่พบโปรไฟล์: %s\n"
+
+#: src/profile.c:323
+msgid "-d/--device and -t/--toggle are required"
+msgstr "ต้องระบุ -d/--device และ -t/--toggle"
+
+#: src/profile.c:329
+msgid "empty or invalid profile list"
+msgstr "รายการโปรไฟล์ว่างหรือไม่ถูกต้อง"
+
+#: src/profile.c:357
 #, c-format
 msgid "profile not on card: %s\n"
 msgstr "ไม่มีโปรไฟล์บนการ์ด: %s\n"
 
-#: src/lib.c:688
+#: src/select.c:131
 #, c-format
-msgid "profile not found: %s\n"
-msgstr "ไม่พบโปรไฟล์: %s\n"
+msgid "invalid device: %s\n"
+msgstr "อุปกรณ์ไม่ถูกต้อง: %s\n"
+
+#: src/select.c:140
+#, c-format
+msgid "device index out of range: %d\n"
+msgstr "ดัชนีอุปกรณ์เกินช่วง: %d\n"
+
+#: src/select.c:149
+#, c-format
+msgid "card not found: %u\n"
+msgstr "ไม่พบการ์ด: %u\n"
+
+#: src/select.c:198 src/select.c:235
+#, c-format
+msgid "device not found: %s\n"
+msgstr "ไม่พบอุปกรณ์: %s\n"
+
+#: src/select.c:244
+msgid "-d/--device is required"
+msgstr "ต้องระบุ -d/--device"
+
+#: src/select.c:264
+msgid "no matching devices"
+msgstr "ไม่พบอุปกรณ์ที่ตรงกัน"
+
+#: src/session.c:74
+msgid "PulseAudio connection failed"
+msgstr "การเชื่อมต่อ PulseAudio ล้มเหลว"
+
+#~ msgid "index, :CARD, playback:CARD, capture:CARD, or name (TYPE optional)\n"
+#~ msgstr "ดัชนี, :CARD, playback:CARD, capture:CARD หรือชื่อ (TYPE ไม่บังคับ)\n"
+
+#, c-format
+#~ msgid "%s device not found for card %u\n"
+#~ msgstr "ไม่พบอุปกรณ์ %s สำหรับการ์ด %u\n"
