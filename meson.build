@@ -217,3 +217,50 @@ foreach puff : man_puffs
     install_dir: mandir / 'man1',
   )
 endforeach
+
+# Translated whole-document mans under docs/<locale>/ (L1 scaffolds).
+# Unique build outputs + install script: Meson forbids path segments in
+# custom_target output and install_data cannot take a CustomTarget.
+man_i18n_langs = [
+    'ar',
+    'de',
+    'es_MX',
+    'fr',
+    'it',
+    'ja',
+    'ko',
+    'zh_CN',
+]
+foreach lang : man_i18n_langs
+  foreach puff : man_puffs
+    man_in = 'docs' / lang / (puff + '.adoc')
+    if not fs.exists(man_in)
+      continue
+    endif
+    man_built = custom_target(
+      puff + '-man-' + lang,
+      input: man_in,
+      output: puff + '-' + lang + '.1',
+      command: [
+        asciidoctor,
+        '-b', 'manpage',
+        '-a', 'project-version=' + meson.project_version(),
+        '-a', 'project-year=@0@'.format(project_year),
+        '-a', 'project-author=' + project_author,
+        '-a', 'project-email=' + project_email,
+        '-o', '@OUTPUT@',
+        '@INPUT@',
+      ],
+      build_by_default: true,
+    )
+    # Absolute dest under prefix; DESTDIR is prepended (RPM may set mandir absolute).
+    meson.add_install_script(
+      'sh',
+      '-c',
+      'install -D -m644 "$1" "${DESTDIR:-}$2"',
+      '--',
+      man_built,
+      mandir / lang / 'man1' / (puff + '.1'),
+    )
+  endforeach
+endforeach

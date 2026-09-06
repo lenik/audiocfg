@@ -1,3 +1,10 @@
+audiocfg (1.0.6) unstable; urgency=medium
+
+  * Install locale man pages from docs/<lang>/ so RPM %files
+    %{_mandir}/*/man1/audiocfg.1* matches Meson install output.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Mon, 06 Sep 2026 17:10:00 +0800
+
 audiocfg (1.0.5) unstable; urgency=medium
 
   * Align packaging/Meson/man pages to current zephyr style (zfr ize).
