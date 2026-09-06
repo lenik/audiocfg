@@ -2,6 +2,7 @@ audiocfg (1.0.6) unstable; urgency=medium
 
   * Install locale man pages from docs/<lang>/ so RPM %files
     %{_mandir}/*/man1/audiocfg.1* matches Meson install output.
+  * Skip MinGW packaging when cross dependencies are unavailable.
 
  -- Lenik (谢继雷) <lenik@bodz.net>  Mon, 06 Sep 2026 17:10:00 +0800
 
